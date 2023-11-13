@@ -3,4 +3,10 @@
     <string name="txt_password">Password</string>
     <string name="txt_login">Login</string>
     <string name="txt_registar">Registar</string>
+    <string name="txt_marca">Marca:</string>
+    <string name="txt_modelo">Modelo:</string>
+    <string name="txt_combustivel">Combustível:</string>
+    <string name="txt_preco">Preço:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
