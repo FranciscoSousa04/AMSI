@@ -1,5 +1,6 @@
 package com.example.rentallmotorbike.vistas;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.adaptadores.ListaMotociclosAdaptador;
@@ -24,6 +26,9 @@ public class ListaMotociclosFragment extends Fragment {
 
     private ArrayList<Motociclo> motociclos;
 
+    private SearchView searchView;
+
+
     public ListaMotociclosFragment() {
     }
 
@@ -33,15 +38,18 @@ public class ListaMotociclosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lista_motociclos, container, false);
 
+        setHasOptionsMenu(true);
+
         lvMotociclos=view.findViewById(R.id.lvMotociclos);
-        motociclos= SingletonGestorMotociclos.getInstance().getMotociclos();
-        lvMotociclos.setAdapter(new ListaMotociclosAdaptador(getContext(), motociclos));
+        SingletonGestorMotociclos.getInstance(getContext()).setMotociclosListener(this);
+
+        SingletonGestorMotociclos.getInstance(getContext()).getAllMotociclosAPI(getContext());
 
         lvMotociclos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetalhesMotocicloActivity.class);
-                Intent.putExtra(Id_motociclo, (int) id);
+                intent.putExtra(DetalhesMotocicloActivity.IDMOTOCICLO, (int) id);
                 startActivity(intent);
             }
         });
@@ -49,4 +57,18 @@ public class ListaMotociclosFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        if (searchView != null)
+            searchView.onActionViewCollapsed();
+        super.onResume();
+    }
+
+
+    public void onRefreshListaMotociclos(ArrayList<Motociclo> listaMotociclos) {
+        if (listaMotociclos != null)
+            lvMotociclos.setAdapter(new ListaMotociclosAdaptador(getContext(), listaMotociclos));
+    }
+
 }

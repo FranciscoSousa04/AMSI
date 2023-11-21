@@ -4,7 +4,8 @@ import com.example.rentallmotorbike.modelo.Motociclo;
 
 import java.util.ArrayList;
 
-public class MotociclosListener {
+public interface MotociclosListener {
+
     void onRefreshListaMotociclos(ArrayList<Motociclo> motociclos);
 
 }
