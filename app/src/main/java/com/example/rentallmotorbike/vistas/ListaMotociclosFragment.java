@@ -3,9 +3,6 @@ package com.example.rentallmotorbike.vistas;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.adaptadores.ListaMotociclosAdaptador;
+import com.example.rentallmotorbike.listeners.MotociclosListener;
 import com.example.rentallmotorbike.modelo.Motociclo;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
 
 import java.util.ArrayList;
 
-public class ListaMotociclosFragment extends Fragment {
+public class ListaMotociclosFragment extends Fragment implements MotociclosListener {
 
     private ListView lvMotociclos;
 
