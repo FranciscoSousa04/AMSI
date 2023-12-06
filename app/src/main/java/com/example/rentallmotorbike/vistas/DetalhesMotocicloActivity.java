@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.modelo.DatabaseHelper;
 import com.example.rentallmotorbike.modelo.Motociclo;
@@ -44,7 +46,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
         idprofile = sharedPreferences.getInt("id", -1);
         imgCapa = findViewById(R.id.imgCapa);
-        idmotociclo = getIntent().getIntExtra(IDMOTOCICLO,0);
+        idmotociclo = getIntent().getIntExtra(IDMOTOCICLO, 0);
         db = new DatabaseHelper(this);
 
         fabGuardar = findViewById(R.id.fabGuardar);
@@ -72,12 +74,12 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DatabaseHelper myDb;
 
-// Initialize the database helper in onCreate() method
+                // Initialize the database helper in onCreate() method
                 myDb = new DatabaseHelper(getApplicationContext());
 
-// To insert data
+                // To insert data
                 myDb.insertData(idprofile + "", motociclo.getMarca() + " " + motociclo.getModelo());
-                Toast.makeText(DetalhesMotocicloActivity.this, "Veiculo guardado com sucesso", Toast.LENGTH_LONG).show();
+                Toast.makeText(DetalhesMotocicloActivity.this, "Adicionado ao carrinho com sucesso", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -95,12 +97,11 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         etMatricula.setText(motociclo.getMatricula());
         etDescricao.setText(motociclo.getDescricao());
         etFranquia.setText(motociclo.getFranquia() + "");
-        // etTipoVeiculo.setText(veiculo.getTipoveiculo()+"");
-        //etFranquia.setText(veiculo.getFranquia()+"");
-        //Glide.with(this)
-          //      .load(veiculo.getDescricao())
-           //     .placeholder(R.drawable.logo)
-           //     .diskCacheStrategy(DiskCacheStrategy.ALL)
-            //    .into(imgCapa);
+        
+        Glide.with(this)
+              .load(motociclo.getDescricao())
+             .placeholder(R.drawable.logo)
+             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imgCapa);
     }
 }
