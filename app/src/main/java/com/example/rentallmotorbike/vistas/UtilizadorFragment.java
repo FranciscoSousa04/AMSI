@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.listeners.PerfilListener;
 import com.example.rentallmotorbike.modelo.Perfil;
@@ -204,12 +206,12 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
             etNrCarta.setText(perfil.getNif() + "");
             etEmail.setText(email);
             etUsername.setText(username);
-            //Glide.with(this)
-              //      .load(getActivity())
-            //    .placeholder(R.drawable.user)
-              //      .diskCacheStrategy(DiskCacheStrategy.ALL)
-               //     .into(imgCapa);
-            //etNome.setText(" " + perfil.getNome() + " " + perfil.getApelido());
+            Glide.with(this)
+                 .load(getActivity())
+                 .placeholder(R.drawable.user)
+                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .into(imgCapa);
+            etNome.setText(" " + perfil.getNome() + " " + perfil.getApelido());
         }
     }
 }

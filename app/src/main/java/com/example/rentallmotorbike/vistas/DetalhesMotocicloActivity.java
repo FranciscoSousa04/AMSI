@@ -97,7 +97,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         etMatricula.setText(motociclo.getMatricula());
         etDescricao.setText(motociclo.getDescricao());
         etFranquia.setText(motociclo.getFranquia() + "");
-        
+
         Glide.with(this)
               .load(motociclo.getDescricao())
              .placeholder(R.drawable.logo)
