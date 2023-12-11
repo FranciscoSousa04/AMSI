@@ -5,8 +5,6 @@
         <item name="colorPrimary">@color/purple_500</item>
     </style>
 
-    <style name=".Theme.RentAllMotorBike" parent="Base.Theme.RentAllMotorBike" />
-
     <style name="Theme.RentAllMotorBike.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

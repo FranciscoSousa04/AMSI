@@ -9,16 +9,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rentallmotorbike.listeners.DetalhesListener;
 import com.example.rentallmotorbike.listeners.MotociclosListener;
 import com.example.rentallmotorbike.listeners.ReservasListener;
 import com.example.rentallmotorbike.utils.MotociclosJsonParser;
 import com.example.rentallmotorbike.utils.ReservasJsonParser;
+import com.example.rentallmotorbike.vistas.MenuMainActivity;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SingletonGestorMotociclos {
 
@@ -61,7 +65,7 @@ public class SingletonGestorMotociclos {
     //region LIVRO-BD
 
     public ArrayList<Motociclo> getMotociclosBD() {
-        motociclos = motociclosBD.getAllLivroBD();
+        motociclos = motociclosBD.getAllMotocicloBD();
         return new ArrayList(motociclos);
     }
 
@@ -96,15 +100,51 @@ public class SingletonGestorMotociclos {
         }
     }
 
+
+    public void adicionarMotocicloAPI(final Motociclo motociclo, final Context context) {
+        if (!MotociclosJsonParser.isConnectionInternet(context))
+            Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
+        else {
+            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPI + "motociclo", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //adicionarMotocicloBD(MotociclosJsonParser.parserJsonMotociclo(response));
+                    if (detalhesListener != null)
+                        detalhesListener.onRefreshDetalhes(MenuMainActivity.ADD);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("token", TOKEN);
+                    params.put("marca", motociclo.getMarca());
+                    params.put("modelo", motociclo.getModelo());
+                    params.put("combustive", motociclo.getCombustivel());
+                    params.put("preco", motociclo.getPreco() + "");
+                    params.put("descricao", motociclo.getDescricao());
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+    }
+
+
     public void getAllMotociclosAPI(final Context context) {
         if (!MotociclosJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
 
             if (motociclosListener != null)
-                //motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllLivroBD());
-                motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllLivroBD());
+                //motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllMotocicloBD());
+                motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllMotocicloBD());
         } else {
-            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "veiculo", null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "motociclo", null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
 
@@ -123,6 +163,68 @@ public class SingletonGestorMotociclos {
             volleyQueue.add(req);
         }
     }
+
+
+    public void removerMotocicloAPI(final Motociclo motociclo, final Context context) {
+        if (!MotociclosJsonParser.isConnectionInternet(context))
+            Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
+        else {
+            StringRequest req = new StringRequest(Request.Method.DELETE, mUrlAPI + "motociclo" + "/" + motociclo.getId(), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    removerVeiculoBD(motociclo.getId());
+                    if (detalhesListener != null)
+                        detalhesListener.onRefreshDetalhes(MenuMainActivity.DELETE);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+
+        }
+
+    }
+
+    public void editarMotocicloAPI(final Motociclo motociclo, final Context context) {
+        if (!MotociclosJsonParser.isConnectionInternet(context))
+            Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
+        else {
+            StringRequest req = new StringRequest(Request.Method.PUT, mUrlAPI + "motociclo" + "/" + motociclo.getId(), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    editarVeiculoBD(motociclo);
+                    if (detalhesListener != null)
+                        detalhesListener.onRefreshDetalhes(MenuMainActivity.EDIT);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("token", TOKEN);
+                    params.put("marca", motociclo.getMarca());
+                    params.put("modelo", motociclo.getModelo());
+                    params.put("combustivel", motociclo.getCombustivel());
+                    params.put("preco", motociclo.getPreco() + "");
+                    params.put("descricao", motociclo.getDescricao());
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+    }
+    //endregion
+
+
+
 
     //region métodos getDadosReserva
     public void getReservaAPI(final Context context, int id) {

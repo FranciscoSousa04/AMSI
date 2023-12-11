@@ -12,4 +12,6 @@
     <string name="txt_email">Introduza o email</string>
     <string name="txt_matricula">Matricula:</string>
     <string name="act_detalhesM">Detalhes: %1$s</string>
+    <string name="app_open">Open</string>
+    <string name="app_close">Close</string>
 </resources>

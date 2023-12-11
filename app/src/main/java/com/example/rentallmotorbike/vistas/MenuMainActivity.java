@@ -22,7 +22,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.rentallmotorbike.R;
 import com.google.android.material.navigation.NavigationView;
 
-import org.w3c.dom.Text;
 
 public class MenuMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,7 +43,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
         drawer = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,"open","close");
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.app_open, R.string.app_close);
         toggle.syncState();
         drawer.addDrawerListener(toggle);
 
@@ -94,7 +93,6 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
                 fragment = new ListaMotociclosFragment();
                 setTitle(item.getTitle());
                 break;
-
             case R.id.reservas:
                 fragment = new ListaReservaFragment();
                 setTitle(item.getTitle());
@@ -124,5 +122,4 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
         startActivity(intent);
         finish();
     }
-
 }

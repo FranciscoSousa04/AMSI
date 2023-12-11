@@ -90,7 +90,7 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Motociclo> getAllLivroBD() {
+    public ArrayList<Motociclo> getAllMotocicloBD() {
         ArrayList<Motociclo> motociclos = new ArrayList<>();
         Cursor cursor = db.query(TABLE_MOTOCICLOS, new String[]{PRECO, DESCRICAO, MARCA, MODELO, COMBUSTIVEL, ID, MATRICULA, FRANQUIA}, null, null, null, null, null);
 

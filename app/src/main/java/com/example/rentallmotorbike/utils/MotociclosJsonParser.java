@@ -18,7 +18,7 @@ public class MotociclosJsonParser {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject livro = (JSONObject) response.get(i);
-                int id_veiculo = livro.getInt("id_veiculo");
+                int id_veiculo = livro.getInt("id_motociclo");
                 String marca = livro.getString("marca");
                 String modelo = livro.getString("modelo");
                 String combustivel = livro.getString("combustivel");
@@ -35,11 +35,11 @@ public class MotociclosJsonParser {
         return livros;
     }
 
-    public static Motociclo parserJsonVeiculo(String response) {
+    public static Motociclo parserJsonMotociclo(String response) {
         Motociclo livroAux = null;
         try {
             JSONObject livro = new JSONObject(response);
-            int id = livro.getInt("id_veiculo");
+            int id = livro.getInt("id_motociclo");
             String marca = livro.getString("marca");
             String modelo = livro.getString("modelo");
             String combustivel = livro.getString("combustivel");
