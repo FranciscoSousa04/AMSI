@@ -44,4 +44,16 @@ dependencies {
     implementation("com.google.zxing:core:3.5.0")
     implementation("com.github.yuriy-budiyev:code-scanner:2.3.2")
     implementation("com.github.androidmads:QRGenerator:v2.0.3")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.google.zxing:core:3.5.0")
 }
+
+
+
+
+
+
