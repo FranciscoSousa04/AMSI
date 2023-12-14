@@ -84,38 +84,35 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-        switch (item.getItemId()) {
-            case R.id.utilizador:
-                fragment = new UtilizadorFragment();
-                setTitle(item.getTitle());
-                break;
-            case R.id.pesquisar:
-                fragment = new ListaMotociclosFragment();
-                setTitle(item.getTitle());
-                break;
-            case R.id.reservas:
-                fragment = new ListaReservaFragment();
-                setTitle(item.getTitle());
-                break;
-            case R.id.carrinho:
-                fragment = new CarrinhoFragment();
-                setTitle(item.getTitle());
-                break;
-            case R.id.sobre:
-                fragment = new SobreFragment();
-                setTitle(item.getTitle());
-                break;
 
-            case R.id.logout:
-                logout();
-                break;
+        if (item.getItemId() == R.id.utilizador) {
+            fragment = new UtilizadorFragment();
+            setTitle(item.getTitle());
+        } else if (item.getItemId() == R.id.pesquisar) {
+            fragment = new ListaMotociclosFragment();
+            setTitle(item.getTitle());
+        } else if (item.getItemId() == R.id.reservas) {
+            fragment = new ListaReservaFragment();
+            setTitle(item.getTitle());
+        } else if (item.getItemId() == R.id.carrinho) {
+            fragment = new CarrinhoFragment();
+            setTitle(item.getTitle());
+        } else if (item.getItemId() == R.id.sobre) {
+            fragment = new SobreFragment();
+            setTitle(item.getTitle());
+        } else if (item.getItemId() == R.id.logout) {
+            logout();
+            return true;
         }
-        if (fragment != null)
+
+        if (fragment != null) {
             fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();
+        }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     private void logout() {
         Intent intent = new Intent(this, LoginActivity.class);
