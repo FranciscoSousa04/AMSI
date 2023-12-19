@@ -15,6 +15,7 @@ import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.adaptadores.CarrinhoAdaptador;
 import com.example.rentallmotorbike.modelo.CartItem;
 import com.example.rentallmotorbike.modelo.Invoice;
+import com.example.rentallmotorbike.modelo.Motociclo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,17 @@ import java.util.List;
 public class CarrinhoFragment extends Fragment {
 
     private List<CartItem> cartItems = new ArrayList<>();
+    private List<Motociclo> motociclos;
 
     // Construtor vazio obrigatório
     public CarrinhoFragment() {
+        this.motociclos = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_carrinho, container, false);
-
-        addItemToCart("Moto A",50.0,2);
-        addItemToCart("Moto B",50.0,2);
-
 
         updateCartView(view);
 
@@ -48,14 +47,16 @@ public class CarrinhoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Invoice invoice = createInvoice();
-
                 sendEmail(invoice);
-
             }
         });
 
-
         return view;
+    }
+
+
+    public List<Motociclo> getMotociclos(){
+        return motociclos;
     }
 
     private void sendEmail(Invoice invoice) {
@@ -73,15 +74,6 @@ public class CarrinhoFragment extends Fragment {
         totalTextView.setText("Total: " + total + "€");
 
     }
-
-
-    // Adicionar item ao carrinho
-    public void addItemToCart(String itemName, double itemPrice, int quantity) {
-        CartItem newItem = new CartItem(itemName, itemPrice, quantity);
-        cartItems.add(newItem);
-    }
-
-    // Outras operações de carrinho de compras (remover item, obter total, etc.)
 
     // Criar fatura com base nos itens no carrinho
     public Invoice createInvoice() {

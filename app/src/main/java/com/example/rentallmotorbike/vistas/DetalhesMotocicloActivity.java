@@ -14,10 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
+import com.example.rentallmotorbike.modelo.CartItem;
 import com.example.rentallmotorbike.modelo.DatabaseHelper;
 import com.example.rentallmotorbike.modelo.Motociclo;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetalhesMotocicloActivity extends AppCompatActivity {
 
@@ -28,6 +32,8 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
     private FloatingActionButton fabGuardar;
     private Button btnReservar;
     public static final String IDMOTOCICLO = "IDVEICULO";
+
+    private List<CartItem> cartItems = new ArrayList<>();
 
     private DatabaseHelper db;
 
@@ -57,6 +63,8 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                adicionarAoCarrinho();
+
             }
         });
 
@@ -84,6 +92,11 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void adicionarAoCarrinho() {
+        CartItem cartItem = new CartItem(motociclo.getMarca() + " " + motociclo.getModelo(), motociclo.getPreco(), 1);
+        cartItems.add(cartItem);
     }
 
     private void carregarMotociclo() {
