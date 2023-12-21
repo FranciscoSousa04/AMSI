@@ -12,9 +12,13 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rentallmotorbike.listeners.DetalhesListener;
+import com.example.rentallmotorbike.listeners.ExtrasListener;
 import com.example.rentallmotorbike.listeners.MotociclosListener;
+import com.example.rentallmotorbike.listeners.PerfilListener;
 import com.example.rentallmotorbike.listeners.ReservasListener;
+import com.example.rentallmotorbike.utils.ExtraJsonParser;
 import com.example.rentallmotorbike.utils.MotociclosJsonParser;
+import com.example.rentallmotorbike.utils.PerfilJsonParser;
 import com.example.rentallmotorbike.utils.ReservasJsonParser;
 import com.example.rentallmotorbike.vistas.MenuMainActivity;
 
@@ -36,22 +40,27 @@ public class SingletonGestorMotociclos {
 
     private DetalhesListener detalhesListener;
 
-    //private ExtrasListener extrasListener;
-    //private ArrayList<Extras> extras;
+    private ExtrasListener extrasListener;
+    private ArrayList<Extras> extras;
 
     private ReservasListener reservasListener;
     private ArrayList<Reserva> reservas;
 
-    //private PerfilListener perfilListener;
-    //private Perfil perfil;
+    private PerfilListener perfilListener;
+    private Perfil perfil;
 
 
 
     public static synchronized SingletonGestorMotociclos getInstance(Context context) {
         if (instance == null)
-            instance = new SingletonGestorMotociclos();
+            instance = new SingletonGestorMotociclos(context);
         volleyQueue = Volley.newRequestQueue(context);
         return instance;
+    }
+
+    private SingletonGestorMotociclos(Context context) {
+        motociclos = new ArrayList<>();
+        motociclosBD = new MotocicloBDHelper(context);
     }
 
     public void setMotociclosListener(MotociclosListener motociclosListener) {
@@ -61,6 +70,15 @@ public class SingletonGestorMotociclos {
     public void setReservasListener(ReservasListener reservasListener) {
         this.reservasListener = reservasListener;
     }
+
+    public void setDetalhesListener(DetalhesListener detalhesListener) {
+        this.detalhesListener = detalhesListener;
+    }
+
+    public void setDadosPessoaisListener(PerfilListener perfilListener) {
+        this.perfilListener = perfilListener;
+    }
+
 
     //region LIVRO-BD
 
@@ -76,14 +94,14 @@ public class SingletonGestorMotociclos {
         return null;
     }
 
-    public void adicionarMotociclosBD(Motociclo motociclo) {
+    public void adicionarMotocicloBD(Motociclo motociclo) {
         motociclosBD.adicionarLivroBD(motociclo);
     }
 
-    public void adicionarMotocicloBD(ArrayList<Motociclo> motociclos) {
+    public void adicionarMotociclosBD(ArrayList<Motociclo> motociclos) {
         motociclosBD.removerAllLivrosBD();
         for (Motociclo l : motociclos)
-            adicionarMotociclosBD(l);
+            adicionarMotocicloBD(l);
     }
 
     public void removerVeiculoBD(int id) {
@@ -141,7 +159,6 @@ public class SingletonGestorMotociclos {
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
 
             if (motociclosListener != null)
-                //motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllMotocicloBD());
                 motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllMotocicloBD());
         } else {
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "motociclo", null, new Response.Listener<JSONArray>() {
@@ -149,7 +166,7 @@ public class SingletonGestorMotociclos {
                 public void onResponse(JSONArray response) {
 
                     motociclos = MotociclosJsonParser.parserJsonMotociclos(response);
-                    adicionarMotocicloBD(motociclos);
+                    adicionarMotociclosBD(motociclos);
 
                     if (motociclosListener != null)
                         motociclosListener.onRefreshListaMotociclos(motociclos);
@@ -223,8 +240,56 @@ public class SingletonGestorMotociclos {
     }
     //endregion
 
+    //region métodos Horarios
+    public void getAllExtrasEXPAPI(final Context context, int id) {
+        if (!ExtraJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "extra", null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    extras = ExtraJsonParser.parseJsonExtras(response);
+                    if (extrasListener != null)
+                        extrasListener.onRefreshListaExtras(extras);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+//endregion
 
+    //region métodos getDadosPessoais
+    public Perfil getPerfilAPI(final Context context, int id) {
 
+        if (!PerfilJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
+        } else {
+            StringRequest req = new StringRequest(Request.Method.GET, mUrlAPI + "user/viewprofile?id=" + id, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    perfil = PerfilJsonParser.parseJsonDadosPessoal(response);
+
+                    if (perfilListener != null)
+                        perfilListener.onRefreshPerfil(perfil);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(req);
+            return perfil;
+        }
+        return null;
+    }
+
+//endregion
 
     //region métodos getDadosReserva
     public void getReservaAPI(final Context context, int id) {
@@ -251,6 +316,7 @@ public class SingletonGestorMotociclos {
 
     }
 
+    //Gestor
     public void getALLReservasAPI(final Context context) {
 
         if (!ReservasJsonParser.isConnectionInternet(context)) {
