@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/camara"
+            android:icon="@drawable/ic_action_camara"
+            android:title="Scan" />
+        <item
+            android:id="@+id/reservas"
+            android:icon="@drawable/ic_action_pesquisar"
+            android:title="Reservas" />
+        <item
+            android:id="@+id/utilizador"
+            android:icon="@drawable/ic_action_conta"
+            android:title="Perfil" />
+
+
+    </group>
+    <item android:title="Opções">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_action_sair"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

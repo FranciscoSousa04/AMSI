@@ -16,6 +16,9 @@
         android:theme="@style/Theme.RentAllMotorBike"
         tools:targetApi="31">
         <activity
+            android:name=".vistas.MenuMainGestorActivity"
+            android:exported="false" />
+        <activity
             android:name=".vistas.ReservaMotocicloActivity"
             android:exported="false" />
         <activity
