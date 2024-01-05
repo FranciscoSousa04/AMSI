@@ -34,7 +34,7 @@ public class SingletonGestorMotociclos {
     private static SingletonGestorMotociclos instance = null;
     private MotocicloBDHelper motociclosBD;
     private static RequestQueue volleyQueue = null;
-    public static final String mUrlAPI = "";
+    public static final String mUrlAPI = "localhost/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
     private static final String TOKEN = "AMSI-TOKEN";
     private MotociclosListener motociclosListener;
 
