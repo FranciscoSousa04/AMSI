@@ -87,6 +87,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         ctnrextras = findViewById(R.id.container_extras);
 
 
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dpwnseguro.setAdapter(adapter);
         dpwnseguro.setOnItemSelectedListener(this);

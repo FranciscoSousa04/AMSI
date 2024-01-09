@@ -166,6 +166,9 @@ public class SingletonGestorMotociclos {
                 public void onResponse(JSONArray response) {
 
                     motociclos = MotociclosJsonParser.parserJsonMotociclos(response);
+
+
+                    //Add BaseDados Local
                     adicionarMotociclosBD(motociclos);
 
                     if (motociclosListener != null)

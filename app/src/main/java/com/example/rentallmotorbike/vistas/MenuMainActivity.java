@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -93,9 +92,6 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             setTitle(item.getTitle());
         } else if (item.getItemId() == R.id.reservas) {
             fragment = new ListaReservaFragment();
-            setTitle(item.getTitle());
-        } else if (item.getItemId() == R.id.carrinho) {
-            fragment = new CarrinhoFragment();
             setTitle(item.getTitle());
         } else if (item.getItemId() == R.id.sobre) {
             fragment = new SobreFragment();
