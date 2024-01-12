@@ -72,8 +72,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
 
         dpwdn_localizacaol = (Spinner) findViewById(R.id.dpwn_localizacaol);
         getDropdownLocalizacaol();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.dpwn_seguro, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dpwn_seguro, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dpwdn_localizacaol.setAdapter(adapter);
         dpwdn_localizacaol.setOnItemSelectedListener(this);

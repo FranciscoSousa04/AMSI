@@ -16,4 +16,5 @@
     <string name="app_close">Close</string>
     <string name="txt_extras">Extras:</string>
     <string name="txt_password_invalida">Password Inválida</string>
+    <string name="ip">IP</string>
 </resources>

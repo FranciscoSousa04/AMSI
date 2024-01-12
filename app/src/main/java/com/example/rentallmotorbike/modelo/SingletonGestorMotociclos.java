@@ -2,6 +2,7 @@ package com.example.rentallmotorbike.modelo;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,7 +35,7 @@ public class SingletonGestorMotociclos {
     private static SingletonGestorMotociclos instance = null;
     private MotocicloBDHelper motociclosBD;
     private static RequestQueue volleyQueue = null;
-    public static final String mUrlAPI = "";
+    public static String mUrlAPI = "";
     private static final String TOKEN = "AMSI-TOKEN";
     private MotociclosListener motociclosListener;
 
@@ -155,6 +156,12 @@ public class SingletonGestorMotociclos {
 
 
     public void getAllMotociclosAPI(final Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", "");
+
+        if (ip != null && !ip.isEmpty()){
+            mUrlAPI = "http://" + ip;
+        }
         if (!MotociclosJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
 
