@@ -1,0 +1,155 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp">
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fatura:"
+        android:textSize="20sp"
+        android:layout_marginTop="90dp"
+        android:layout_marginLeft="130dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marca e Modelo"
+        android:layout_below="@id/tvNome"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:id="@+id/tvMarcaModelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marca e Modelo"
+        android:layout_below="@id/tvNome"
+        android:textStyle="bold"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seguro"
+        android:layout_below="@id/tvMarcaModelo"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvSeguro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seguro"
+        android:layout_below="@id/tvMarcaModelo"
+        android:layout_marginLeft="50dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local de Levantamento"
+        android:layout_below="@id/tvSeguro"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvLocalLevantamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local de Levantamento"
+        android:layout_below="@id/tvSeguro"
+        android:layout_marginLeft="150dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Levantamento"
+        android:layout_below="@id/tvLocalLevantamento"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvDataLevantamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Levantamento"
+        android:layout_below="@id/tvLocalLevantamento"
+        android:layout_marginLeft="150dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local de Devolução"
+        android:layout_below="@id/tvDataLevantamento"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvLocalDevolucao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local de Devolução"
+        android:layout_below="@id/tvDataLevantamento"
+        android:layout_marginLeft="130dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Devolução"
+        android:layout_below="@id/tvLocalDevolucao"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvDataDevolucao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Devolução"
+        android:layout_below="@id/tvLocalDevolucao"
+        android:layout_marginLeft="130dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preço"
+        android:layout_below="@id/tvDataDevolucao"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/tvPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preço"
+        android:layout_below="@id/tvDataDevolucao"
+        android:textStyle="bold"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Matrícula"
+        android:layout_below="@id/tvPreco"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvMatricula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Matrícula"
+        android:layout_below="@id/tvPreco"
+        android:layout_marginLeft="70dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
+
+</RelativeLayout>

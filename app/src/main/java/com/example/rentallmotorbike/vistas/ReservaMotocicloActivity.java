@@ -28,8 +28,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.modelo.Motociclo;
+import com.example.rentallmotorbike.modelo.Reserva;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,10 +43,10 @@ import java.util.Map;
 public class ReservaMotocicloActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Motociclo motociclo;
+    private Reserva reserva;
     private int idprofile, idreserva, idmotociclo, idseguro, idLocalizacaol, idLocalizacaod;
     private TextView etMarca, etModelo, etPreco, etCombustivel, etMatricula, etDataD, etDatal;
     private ImageView imgCapa;
-    private FloatingActionButton fabGuardar;
     private Button btnReservar;
     public static final String IDMOTOCICLO = "IDMOTOCICLO";
     public static final int MIN_CHAR = 3;
@@ -103,6 +103,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
                     return;
                 } else {
                     criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
+                    iniciarFaturaActivity();
                 }
             }
         });
@@ -115,6 +116,8 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         }
 
     }
+
+
 
     private void criarReserva(int idprofile, int idmotociclo, int idseguro, String datal, String dataD, int idLocalizacaol, int idLocalizacaod) {
         String url = SingletonGestorMotociclos.mUrlAPI + "motociclo/create?data_inicio=" + datal + "&data_fim=" + dataD + "&motociclo_id=" + idmotociclo + "profile_id=" + idprofile + "&id=1&seguro_id=" + idseguro + "&localizacaol=" + idLocalizacaol + "&localizacaod=" + idLocalizacaod;
@@ -295,6 +298,23 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
+    private void iniciarFaturaActivity() {
+        Intent intent = new Intent(ReservaMotocicloActivity.this, FaturaActivity.class);
+        intent.putExtra("MARCA", reserva.getMarca());
+        intent.putExtra("MODELO", reserva.getModelo());
+        intent.putExtra("SEGURO", reserva.getSeguro());
+        intent.putExtra("LOCAL_LEVANTAMENTO", reserva.getLocalizacao_levantamento());
+        intent.putExtra("DATA_LEVANTAMENTO", reserva.getData_inicio());
+        intent.putExtra("LOCAL_DEVOLUCAO", reserva.getLocalizacao_devolucao());
+        intent.putExtra("DATA_DEVOLUCAO", reserva.getData_fim());
+        intent.putExtra("PRECO", reserva.getPreco());
+        intent.putExtra("MATRICULA", reserva.getMatricula());
+        startActivity(intent);
+        finish();
+    }
+
 
     private void carregarMotociclo() {
         Resources res = getResources();
