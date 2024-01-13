@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:orientation="vertical"
     tools:context=".vistas.AssistenciaActivity">
 
     <ScrollView
@@ -14,126 +13,74 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/imgCapa"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_weight="0.5"
+                android:layout_height="306dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/logo" />
 
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Motociclo:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/etMotociclo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:hint="Insira o motociclo"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="7dp"
-                    android:text="Veiculo:"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Data pedido:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/etVeiculo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/etDataPedido"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:hint="Insira a data do pedido"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="7dp"
-                    android:text="Data pedido:"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Mensagem:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/etDataPedido"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Data pedido"
-
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/etMensagem"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="7dp"
-                    android:text="Localização:"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etLocalizacao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="7dp"
-                    android:text="Mensagem:"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etMensagem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-
-                    android:textSize="20dp" />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:hint="Insira sua mensagem"
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/btnEnviarPedido"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="24dp"
                 android:text="Enviar pedido" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3" />
 
         </LinearLayout>
     </ScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

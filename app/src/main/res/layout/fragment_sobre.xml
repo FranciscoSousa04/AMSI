@@ -6,42 +6,63 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="20dp"
+    android:background="@drawable/logo"
     tools:context=".vistas.SobreFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        tools:src="@drawable/logo" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.08"
-        android:text="" />
-
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:text="Esta aplicação foi desenvolvida no ambito da Unidade Curricular de Acesso Movel" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06"
         android:gravity="center"
-        android:text="A equipa" />
+        android:textColor="#FFFFFF"
+        android:text="A equipa:" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:text="" />
+        android:textAlignment="center"
+
+        android:textColor="#FFFFFF"
+        android:text="Bruno Lopes Nº 2201104" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+
+        android:textColor="#FFFFFF"
+        android:text="João Lucas Nº 220118" />
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+
+        android:textColor="#FFFFFF"
+        android:text="Francisco Sousa Nº 2220852" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4" />
+        android:layout_weight="0.15" />
 
 </LinearLayout>
