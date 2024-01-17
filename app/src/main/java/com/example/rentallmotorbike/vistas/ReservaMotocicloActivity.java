@@ -310,7 +310,6 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         intent.putExtra("LOCAL_DEVOLUCAO", reserva.getLocalizacao_devolucao());
         intent.putExtra("DATA_DEVOLUCAO", reserva.getData_fim());
         intent.putExtra("PRECO", reserva.getPreco());
-        intent.putExtra("MATRICULA", reserva.getMatricula());
         startActivity(intent);
         finish();
     }

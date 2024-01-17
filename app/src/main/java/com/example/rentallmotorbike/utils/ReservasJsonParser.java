@@ -30,9 +30,8 @@ public class ReservasJsonParser {
                 String localizacao_levantamento = reserva.getString("localizacao_levantamento");
                 String localizacao_devolucao = reserva.getString("localizacao_devolucao");
                 int preco=reserva.getInt("preco");
-                String matricula = reserva.getString("matricula");
 
-                Reserva reservaAux = new Reserva(id_reserva, data_inicio,data_fim,motociclo_id, marca, modelo, profile_id,seguro_id,seguro,localizacao_levantamento,localizacao_devolucao,preco,matricula);
+                Reserva reservaAux = new Reserva(id_reserva, data_inicio,data_fim,motociclo_id, marca, modelo, profile_id,seguro_id,seguro,localizacao_levantamento,localizacao_devolucao,preco);
                 reservas.add(reservaAux);
             }
         } catch (JSONException e) {
@@ -57,9 +56,8 @@ public class ReservasJsonParser {
             String localizacao_levantamento = reserva.getString("localizacao_levantamento");
             String localizacao_devolucao = reserva.getString("localizacao_devolucao");
             int preco=reserva.getInt("preco");
-            String matricula = reserva.getString("matricula");
 
-            reservaAux = new Reserva(id_reserva, data_inicio,data_fim,motociclo_id, marca, modelo, profile_id,seguro_id,seguro,localizacao_levantamento,localizacao_devolucao,preco,matricula);
+            reservaAux = new Reserva(id_reserva, data_inicio,data_fim,motociclo_id, marca, modelo, profile_id,seguro_id,seguro,localizacao_levantamento,localizacao_devolucao,preco);
         } catch (JSONException e) {
             e.printStackTrace();
         }

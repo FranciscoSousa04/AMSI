@@ -65,10 +65,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public void onLoginSuccess(String username) {
         Intent intent = new Intent(LoginActivity.this, ListaMotociclosFragment.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
     public void onLoginError(String errorMessage) {
-
+        Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
     }
 }

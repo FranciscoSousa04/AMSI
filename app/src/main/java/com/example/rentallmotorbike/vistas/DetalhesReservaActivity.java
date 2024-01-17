@@ -59,7 +59,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetalhesReservaActivity.this, AssistenciaActivity.class);
-                intent.putExtra(DetalhesReservaActivity.IDVEICULO, reserva.getVeiculo_id());
+                intent.putExtra(DetalhesReservaActivity.IDVEICULO, reserva.getMotociclo_id());
                 startActivity(intent);
                 finish();
             }
@@ -87,7 +87,6 @@ public class DetalhesReservaActivity extends AppCompatActivity {
         tvLocalD.setText(reserva.getLocalizacao_devolucao());
         tvDataD.setText(reserva.getData_fim() + "");
         tvPreco.setText(reserva.getPreco() + "€");
-        tvMatricula.setText(reserva.getMatricula());
         //imgCapa.setImageBitmap(makeqr(reserva.getId() + ""));
 
         String dateFormat1 = reserva.getData_inicio();
