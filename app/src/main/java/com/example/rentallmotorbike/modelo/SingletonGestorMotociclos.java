@@ -170,7 +170,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
@@ -207,7 +207,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
@@ -237,7 +237,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
@@ -278,7 +278,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ExtraJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -307,7 +307,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!PerfilJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -340,7 +340,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -370,7 +370,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
         } else {
@@ -406,7 +406,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
