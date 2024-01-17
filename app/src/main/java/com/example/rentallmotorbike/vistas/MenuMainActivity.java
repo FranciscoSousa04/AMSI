@@ -38,7 +38,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         drawer = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 

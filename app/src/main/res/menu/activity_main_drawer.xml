@@ -13,16 +13,13 @@
         <item
             android:id="@+id/pesquisar"
             android:icon="@drawable/ic_action_pesquisar"
-            android:title="Pesquisar" />
+            android:title="Lista Motociclos" />
         <item
             android:id="@+id/reservas"
             android:icon="@drawable/ic_action_lista"
             android:title="As minhas reservas" />
 
-        <item
-            android:id="@+id/carrinho"
-            android:icon="@drawable/ic_action_carrinho"
-            android:title="Carrinho" />
+
         <item
             android:id="@+id/sobre"
             android:icon="@drawable/ic_action_email"

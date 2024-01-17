@@ -84,7 +84,7 @@ public class ListaReservasAdaptador extends BaseAdapter {
                 tvModelo.setText(reserva.getModelo());
                 tvDataLevantamento.setText(reserva.getData_inicio());
                 tvDataDevolucao.setText(reserva.getData_fim());
-                tvMatricula.setText(reserva.getMatricula());
+
 
 
             }
