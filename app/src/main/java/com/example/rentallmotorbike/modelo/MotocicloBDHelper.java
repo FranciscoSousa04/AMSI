@@ -96,8 +96,8 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Motociclo veiculoAux = new Motociclo(cursor.getInt(5), cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(6), cursor.getInt(7));
-                motociclos.add(veiculoAux);
+                Motociclo MotocicloAux = new Motociclo(cursor.getInt(5), cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(6), cursor.getInt(7));
+                motociclos.add(MotocicloAux);
 
             } while (cursor.moveToNext());
             cursor.close();

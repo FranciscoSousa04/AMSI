@@ -59,7 +59,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetalhesReservaActivity.this, AssistenciaActivity.class);
-                intent.putExtra(DetalhesReservaActivity.IDVEICULO, reserva.getVeiculo_id());
+                intent.putExtra(DetalhesReservaActivity.IDVEICULO, reserva.getMotociclo_id());
                 startActivity(intent);
                 finish();
             }

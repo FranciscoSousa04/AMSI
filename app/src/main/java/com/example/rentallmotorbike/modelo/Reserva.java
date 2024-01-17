@@ -2,14 +2,14 @@ package com.example.rentallmotorbike.modelo;
 
 public class Reserva {
 
-    private int id, veiculo_id, profile_id, seguro_id, preco;
-    private String data_inicio, data_fim, marca, modelo, seguro, localizacao_levantamento, localizacao_devolucao,matricula;
+    private int id, motociclo_id, profile_id, seguro_id, preco;
+    private String data_inicio, data_fim, marca, modelo, seguro, localizacao_levantamento, localizacao_devolucao;
 
-    public Reserva(int id, String data_inicio, String data_fim, int veiculo_id, String marca, String modelo, int profile_id, int seguro_id, String seguro, String localizacao_levantamento, String localizacao_devolucao, int preco, String matricula) {
+    public Reserva(int id, String data_inicio, String data_fim, int motociclo_id, String marca, String modelo, int profile_id, int seguro_id, String seguro, String localizacao_levantamento, String localizacao_devolucao, int preco) {
         this.id = id;
         this.data_inicio = data_inicio;
         this.data_fim = data_fim;
-        this.veiculo_id = veiculo_id;
+        this.motociclo_id = motociclo_id;
         this.marca = marca;
         this.modelo = modelo;
         this.profile_id = profile_id;
@@ -18,7 +18,6 @@ public class Reserva {
         this.localizacao_levantamento = localizacao_levantamento;
         this.localizacao_devolucao = localizacao_devolucao;
         this.preco = preco;
-        this.matricula=matricula;
     }
 
     public int getId() {
@@ -45,12 +44,12 @@ public class Reserva {
         this.data_fim = data_fim;
     }
 
-    public int getVeiculo_id() {
-        return veiculo_id;
+    public int getMotociclo_id() {
+        return motociclo_id;
     }
 
-    public void setVeiculo_id(int veiculo_id) {
-        this.veiculo_id = veiculo_id;
+    public void setMotociclo_id(int motociclo_id) {
+        this.motociclo_id = motociclo_id;
     }
 
     public String getMarca() {
@@ -115,14 +114,6 @@ public class Reserva {
 
     public void setPreco(int preco) {
         this.preco = preco;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
     }
 
 }

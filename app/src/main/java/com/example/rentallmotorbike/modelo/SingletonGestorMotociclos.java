@@ -407,7 +407,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "http://" + ip;
+            mUrlAPI = "https://" + ip;
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -425,6 +425,7 @@ public class SingletonGestorMotociclos {
                             editor.putString("username", username);
                             editor.putString("email", jsonObject.getString("email"));
                             editor.putInt("id", jsonObject.getInt("id"));
+                            editor.putString("token", jsonObject.getString("token"));
                             editor.apply();
                             loginListener.onLoginSuccess(username);
 
@@ -461,12 +462,15 @@ public class SingletonGestorMotociclos {
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }){
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("token", TOKEN);
-                    params.put("username", username);
-                    params.put("password", password);
-                    return params;
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    Map<String, String> params = getParams();
+                    if (params != null && params.size() > 0) {
+                        String requestBody = new JSONObject(params).toString();
+                        Log.d("REQUEST BODY", requestBody);
+                        return requestBody.getBytes();
+                    }
+                    return null;
                 }
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
@@ -478,24 +482,8 @@ public class SingletonGestorMotociclos {
                     headers.put("Authorization", auth);
                     return headers;
                 }
-
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    Map<String, String> params = getParams();
-                    if (params != null && params.size() > 0) {
-                        String requestBody = new JSONObject(params).toString();
-                        Log.d("REQUEST BODY", requestBody);
-                        return requestBody.getBytes();
-                    }
-                    return null;
-                }
-
             };
-            RequestQueue requestQueue = Volley.newRequestQueue(context);
-            requestQueue.add(req);
-
-
-
+            volleyQueue.add(req);
         }
     }
     private boolean isPasswordValida(String pass) {
