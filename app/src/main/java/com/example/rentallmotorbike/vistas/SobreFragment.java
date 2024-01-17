@@ -23,13 +23,8 @@ public class SobreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_sobre, container, false);
-       ImageView imgCapa = view.findViewById(R.id.imageView3);
 
-        Glide.with(this)
-                .load(SobreFragment.this)
-                .placeholder(R.drawable.logo)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgCapa);
+
 
         return view;
     }

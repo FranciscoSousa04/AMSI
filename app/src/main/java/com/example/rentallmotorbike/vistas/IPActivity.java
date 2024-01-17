@@ -30,7 +30,7 @@ public class IPActivity extends AppCompatActivity {
                 getSharedPreferences("user_info", MODE_PRIVATE).edit().putString("ip", ip).apply();
 
                 //String apiUrl = "http://" + ip;
-                Intent intent = new Intent(IPActivity.this, LoginActivity.class);
+                Intent intent = new Intent(IPActivity.this, MenuMainActivity.class);
                 startActivity(intent);
 
 
