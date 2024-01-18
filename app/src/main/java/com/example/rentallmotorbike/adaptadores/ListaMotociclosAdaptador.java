@@ -41,20 +41,22 @@ public class ListaMotociclosAdaptador extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolderlista viewHolder;
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        if(inflater==null)
+            inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_lista_motociclo, null);
-        viewHolder = new ViewHolderlista(convertView);
-        convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolderlista) convertView.getTag();
+        if(view == null)
+            view = inflater.inflate(R.layout.item_lista_motociclo,null);
+
+        ViewHolderlista viewHolder=(ViewHolderlista) view.getTag();
+        if(viewHolder==null){
+            viewHolder=new ViewHolderlista(view);
+            view.setTag(viewHolder);
         }
 
         viewHolder.update(motociclos.get(position));
 
-        return convertView;
+        return view;
     }
 
     private class ViewHolderlista {

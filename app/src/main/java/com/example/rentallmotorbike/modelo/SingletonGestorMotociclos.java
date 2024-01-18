@@ -57,9 +57,10 @@ public class SingletonGestorMotociclos {
 
 
     public static synchronized SingletonGestorMotociclos getInstance(Context context) {
-        if (instance == null)
+        if (instance == null){
             instance = new SingletonGestorMotociclos(context);
-        volleyQueue = Volley.newRequestQueue(context);
+            volleyQueue = Volley.newRequestQueue(context);
+        }
         return instance;
     }
 
@@ -164,7 +165,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
@@ -394,103 +395,10 @@ public class SingletonGestorMotociclos {
         return null;
     }
 
-
-   /* public void LoginAPI (final Context context, final String username, final String password, final EditText etUsername, final EditText etPassword, final com.example.rentallmotorbike.listeners.LoginListener loginListener){
-        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String ip = sharedPreferences.getString("ip", "");
-
-        if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
-        }
-        if (!ReservasJsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
-        } else {
-            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPI + "user/login", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        if (jsonObject.getBoolean("sucess")){
-
-                            Toast.makeText(context, "Login efetuado com sucesso", Toast.LENGTH_LONG).show();
-                            SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("username", username);
-                            editor.putString("email", jsonObject.getString("email"));
-                            editor.putInt("id", jsonObject.getInt("id"));
-                            editor.putString("token", jsonObject.getString("token"));
-                            editor.apply();
-                            loginListener.onLoginSuccess(username);
-
-                            if (jsonObject.getString("role").equals("cliente")){
-                                Intent intent = new Intent(context, MenuMainActivity.class);
-                                intent.putExtra("USER", username);
-                                context.startActivity(intent);
-
-                            } else {
-                                Intent intent = new Intent(context, MenuMainGestorActivity.class);
-                                intent.putExtra("USER", username);
-                                context.startActivity(intent);
-
-                            }
-                        } else {
-                            Toast.makeText(context, "Erro no login", Toast.LENGTH_LONG).show();
-
-                            if (username == null) {
-                                etUsername.setError("Erro no username");
-                            }
-                            if (!isPasswordValida(password)) {
-                                etPassword.setError(context.getString(R.string.txt_password_invalida));
-                            }
-
-                            loginListener.onLoginError("Erro no login");
-                        }
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }){
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    Map<String, String> params = getParams();
-                    if (params != null && params.size() > 0) {
-                        String requestBody = new JSONObject(params).toString();
-                        Log.d("REQUEST BODY", requestBody);
-                        return requestBody.getBytes();
-                    }
-                    return null;
-                }
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json;charset=UTF-8");
-                    headers.put("Accept", "application/json");
-                    String credentials = username + ":" + password; // Your username and password
-                    String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                    headers.put("Authorization", auth);
-                    return headers;
-                }
-            };
-            volleyQueue.add(req);
-        }
-    }
-    private boolean isPasswordValida(String pass) {
-        if (pass == null)
-            return false;
-        return pass.length() >= MIN_PASS;
-    }
-
-    */
-
     //region métodos Userprofile
     private Object userprofile;
 
-    public void setLoginListener(LoginActivity loginActivity) {
+    public void setLoginListener(PerfilListener perfilListener) {
         this.perfilListener = perfilListener;
     }
 
@@ -499,13 +407,13 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!PerfilJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
 
         } else {
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, mUrlAPI + "user/login?username=" + username + "&password=" + passaword, null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, mUrlAPI + "user/login?username=" + username + "&password=" + passaword, null, new Response.Listener<JSONObject>(){
                 @Override
                 public void onResponse(JSONObject response) {
                     userprofile = PerfilJsonParser.parseJsonDadosPessoal(response);

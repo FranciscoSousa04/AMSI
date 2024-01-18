@@ -15,7 +15,7 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "bd_motociclos";
     private static final int DB_VERSION = 1;
     private static final String TABLE_MOTOCICLOS = "motociclos";
-    private static final String ID = "id_motociclo", MARCA = "marca", MODELO = "modelo", COMBUSTIVEL = "combustivel", PRECO = "preco", DESCRICAO = "descricao", MATRICULA = "matricula", FRANQUIA = "franquia";
+    private static final String ID = "id_motociclo", MARCA = "marca", MODELO = "modelo", COMBUSTIVEL = "combustivel", PRECO = "preco", DESCRICAO = "descricao", FRANQUIA = "franquia";
     private final SQLiteDatabase db;
 
     public MotocicloBDHelper(@Nullable Context context) {
@@ -31,8 +31,7 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
                 MODELO + " TEXT NOT NULL, " +
                 COMBUSTIVEL + " TEXT NOT NULL, " +
                 PRECO + " INTEGER NOT NULL, " +
-                DESCRICAO + " TEXT NOT NULL," +
-                MATRICULA + " TEXT NOT NULL" +
+                DESCRICAO + " TEXT NOT NULL" +
                 ");";
         sqLiteDatabase.execSQL(createSQLTableLivro);
 
@@ -54,7 +53,6 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
         values.put(COMBUSTIVEL, motociclo.getCombustivel());
         values.put(PRECO, motociclo.getPreco());
         values.put(DESCRICAO, motociclo.getDescricao());
-        values.put(MATRICULA, motociclo.getMatricula());
         db.insert(TABLE_MOTOCICLOS, null, values);
 
         long id = db.insert(TABLE_MOTOCICLOS, null, values);
@@ -92,11 +90,11 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Motociclo> getAllMotocicloBD() {
         ArrayList<Motociclo> motociclos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_MOTOCICLOS, new String[]{PRECO, DESCRICAO, MARCA, MODELO, COMBUSTIVEL, ID, MATRICULA, FRANQUIA}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_MOTOCICLOS, new String[]{PRECO, DESCRICAO, MARCA, MODELO, COMBUSTIVEL, ID, FRANQUIA}, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Motociclo MotocicloAux = new Motociclo(cursor.getInt(5), cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(6), cursor.getInt(7));
+                Motociclo MotocicloAux = new Motociclo(cursor.getInt(5), cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),  cursor.getInt(6));
                 motociclos.add(MotocicloAux);
 
             } while (cursor.moveToNext());

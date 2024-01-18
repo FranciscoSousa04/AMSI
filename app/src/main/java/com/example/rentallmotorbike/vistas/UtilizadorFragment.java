@@ -47,8 +47,9 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
 
 
     private TextView logout, etNome, etApelido, etTelefone, etNif, etEmail, etUsername, etNrCarta;
+    private Perfil user;
 
-    //private Perfil perfil;
+
 
     public UtilizadorFragment() {
         // Required empty public constructor
@@ -59,6 +60,7 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_utilizador, container, false);
+        user  = SingletonGestorMotociclos.getInstance(getContext()).getUserprofile();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
         email = sharedPreferences.getString("email", "");
@@ -79,6 +81,13 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
 
         btnalterar = view.findViewById(R.id.btnAlterar);
 
+        etNome.setText(user.getNome());
+        etApelido.setText(user.getApelido());
+        etTelefone.setText(user.getTelemovel() + "");
+        etNif.setText(user.getNif() + "");
+        etNrCarta.setText(user.getNrCarta() + "");
+        etEmail.setText(user.getEmail());
+        etUsername.setText(user.getUsername());
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,13 +209,13 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
     @Override
     public void onRefreshPerfil(Perfil perfil) {
         if (perfil != null) {
-            etNome.setText(perfil.getNome());
+            /*etNome.setText(perfil.getNome());
             etApelido.setText(perfil.getApelido());
             etTelefone.setText(perfil.getTelemovel() + "");
             etNif.setText(perfil.getNif() + "");
             etNrCarta.setText(perfil.getNif() + "");
             etEmail.setText(email);
-            etUsername.setText(username);
+            etUsername.setText(username);*/
             Glide.with(this)
                  .load(getActivity())
                  .placeholder(R.drawable.user)

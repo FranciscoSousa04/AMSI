@@ -18,15 +18,14 @@ public class MotociclosJsonParser {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject livro = (JSONObject) response.get(i);
-                int id_veiculo = livro.getInt("id_motociclo");
+                int id_motociclo = livro.getInt("idmotociclo");
                 String marca = livro.getString("marca");
                 String modelo = livro.getString("modelo");
                 String combustivel = livro.getString("combustivel");
                 int preco = livro.getInt("preco");
                 String descricao = livro.getString("descricao");
-                String matricula = livro.getString("matricula");
                 int franquia = livro.getInt("franquia");
-                Motociclo livroAux = new Motociclo(id_veiculo, preco,descricao, marca, modelo, combustivel,matricula,franquia);
+                Motociclo livroAux = new Motociclo(id_motociclo, preco,descricao, marca, modelo, combustivel,franquia);
                 livros.add(livroAux);
             }
         } catch (JSONException e) {
@@ -45,9 +44,8 @@ public class MotociclosJsonParser {
             String combustivel = livro.getString("combustivel");
             int preco = livro.getInt("preco");
             String descricao = livro.getString("descricao");
-            String matricula = livro.getString("matricula");
             int franquia = livro.getInt("franquia");
-            livroAux = new Motociclo(id, preco, descricao, marca, modelo, combustivel,matricula,franquia);
+            livroAux = new Motociclo(id, preco, descricao, marca, modelo, combustivel,franquia);
         } catch (JSONException e) {
             e.printStackTrace();
         }

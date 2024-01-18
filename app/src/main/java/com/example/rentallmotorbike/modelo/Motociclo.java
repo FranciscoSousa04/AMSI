@@ -3,17 +3,16 @@ package com.example.rentallmotorbike.modelo;
 public class Motociclo {
 
     private int id, preco,franquia;
-    private String marca, combustivel, modelo,matricula, descricao;
+    private String marca, combustivel, modelo, descricao;
     private static int autoIncrementId=1;
 
-    public Motociclo(int id, int preco, String descricao, String marca, String modelo, String combustivel,String matricula,int franquia) {
+    public Motociclo(int id, int preco, String descricao, String marca, String modelo, String combustivel,int franquia) {
         this.id = id;
         this.preco = preco;
         this.descricao = descricao;
         this.marca = marca;
         this.combustivel = combustivel;
         this.modelo = modelo;
-        this.matricula=matricula;
         this.franquia=franquia;
     }
 
@@ -62,13 +61,6 @@ public class Motociclo {
         this.modelo = modelo;
     }
 
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
 
     public int getFranquia() {
         return franquia;

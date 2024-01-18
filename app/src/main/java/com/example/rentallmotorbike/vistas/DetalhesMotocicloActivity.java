@@ -97,7 +97,6 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         etModelo.setText(motociclo.getModelo());
         etCombustivel.setText(motociclo.getCombustivel());
         etPreco.setText(motociclo.getPreco() + "€");
-        etMatricula.setText(motociclo.getMatricula());
         etDescricao.setText(motociclo.getDescricao());
         etFranquia.setText(motociclo.getFranquia() + "");
 
