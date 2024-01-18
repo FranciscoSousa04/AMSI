@@ -20,13 +20,15 @@ public class PerfilJsonParser {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject dados = (JSONObject) response.get(i);
                 int id = dados.getInt("id_profile");
+                String username = dados.getString("username");
                 String nome = dados.getString("nome");
                 String apelido = dados.getString("apelido");
-                //String imgPerfil = dados.getString("imgPerfil");
                 int telemovel = dados.getInt("telemovel");
                 int nif = dados.getInt("nif");
-                int nrcarta=dados.getInt("nr_carta_conducao");
-                Perfil auxDadosPessoal = new Perfil(id, nome, apelido, /*imgPerfil,*/ telemovel, nif,nrcarta);
+                int nrcarta=dados.getInt("nr_cartaconducao");
+                String role = dados.getString("role");
+                String email = dados.getString("email");
+                Perfil auxDadosPessoal = new Perfil(id,  nome, apelido, username , telemovel, nif,nrcarta, role, email);
                 dadosPessoais.add(auxDadosPessoal);
             }
         } catch (JSONException e) {
@@ -35,18 +37,19 @@ public class PerfilJsonParser {
         return dadosPessoais;
     }
 
-    public static Perfil parseJsonDadosPessoal(String response) {
+    public static Perfil parseJsonDadosPessoal(JSONObject response) {
         Perfil auxDadosPessoal = null;
         try {
-            JSONObject dados = new JSONObject(response);
-            int id = dados.getInt("id_profile");
-            String nome = dados.getString("nome");
-            String apelido = dados.getString("apelido");
-            //String imgPerfil = dados.getString("imgPerfil");
-            int telemovel = dados.getInt("telemovel");
-            int nif = dados.getInt("nif");
-            int nrcarta=dados.getInt("nr_carta_conducao");
-            auxDadosPessoal = new Perfil(id, nome, apelido, /*imgPerfil,*/ telemovel, nif,nrcarta);
+            int id = response.getInt("id_profile");
+            String username = response.getString("username");
+            String nome = response.getString("nome");
+            String apelido = response.getString("apelido");
+            int telemovel = response.getInt("telemovel");
+            int nif = response.getInt("nif");
+            int nrcarta=response.getInt("nr_cartaconducao");
+            String role = response.getString("role");
+            String email = response.getString("email");
+            auxDadosPessoal = new Perfil(id,  nome, apelido, username , telemovel, nif,nrcarta, role, email);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -102,6 +102,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
                     Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
                     return;
                 } else {
+                    //get singleton adicionar reserva
                     criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
                     iniciarFaturaActivity();
                 }
@@ -118,7 +119,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
     }
 
 
-
+ //passar para o singleton
     private void criarReserva(int idprofile, int idmotociclo, int idseguro, String datal, String dataD, int idLocalizacaol, int idLocalizacaod) {
         String url = SingletonGestorMotociclos.mUrlAPI + "motociclo/create?data_inicio=" + datal + "&data_fim=" + dataD + "&motociclo_id=" + idmotociclo + "profile_id=" + idprofile + "&id=1&seguro_id=" + idseguro + "&localizacaol=" + idLocalizacaol + "&localizacaod=" + idLocalizacaod;
         JSONObject jsonBody = new JSONObject();

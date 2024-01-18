@@ -2,22 +2,17 @@ package com.example.rentallmotorbike.modelo;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Base64;
-import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.listeners.DetalhesListener;
 import com.example.rentallmotorbike.listeners.ExtrasListener;
 import com.example.rentallmotorbike.listeners.MotociclosListener;
@@ -27,11 +22,10 @@ import com.example.rentallmotorbike.utils.ExtraJsonParser;
 import com.example.rentallmotorbike.utils.MotociclosJsonParser;
 import com.example.rentallmotorbike.utils.PerfilJsonParser;
 import com.example.rentallmotorbike.utils.ReservasJsonParser;
+import com.example.rentallmotorbike.vistas.LoginActivity;
 import com.example.rentallmotorbike.vistas.MenuMainActivity;
-import com.example.rentallmotorbike.vistas.MenuMainGestorActivity;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -302,7 +296,7 @@ public class SingletonGestorMotociclos {
 //endregion
 
     //region métodos getDadosPessoais
-    public Perfil getPerfilAPI(final Context context, int id) {
+ /*   public Perfil getPerfilAPI(final Context context, int id) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
@@ -314,7 +308,7 @@ public class SingletonGestorMotociclos {
         } else {
             StringRequest req = new StringRequest(Request.Method.GET, mUrlAPI + "user/viewprofile?id=" + id, new Response.Listener<String>() {
                 @Override
-                public void onResponse(String response) {
+                public void onResponse(JSONObject response) {
                     perfil = PerfilJsonParser.parseJsonDadosPessoal(response);
 
                     if (perfilListener != null)
@@ -330,7 +324,7 @@ public class SingletonGestorMotociclos {
             return perfil;
         }
         return null;
-    }
+    }*/
 
 //endregion
 
@@ -401,7 +395,7 @@ public class SingletonGestorMotociclos {
     }
 
 
-    public void LoginAPI (final Context context, final String username, final String password, final EditText etUsername, final EditText etPassword, final com.example.rentallmotorbike.listeners.LoginListener loginListener){
+   /* public void LoginAPI (final Context context, final String username, final String password, final EditText etUsername, final EditText etPassword, final com.example.rentallmotorbike.listeners.LoginListener loginListener){
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
@@ -490,4 +484,53 @@ public class SingletonGestorMotociclos {
             return false;
         return pass.length() >= MIN_PASS;
     }
+
+    */
+
+    //region métodos Userprofile
+    private Object userprofile;
+
+    public void setLoginListener(LoginActivity loginActivity) {
+        this.perfilListener = perfilListener;
+    }
+
+    public void getLoginAPI(final Context context, String username, String passaword) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", "");
+
+        if (ip != null && !ip.isEmpty()){
+            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+        }
+        if (!PerfilJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
+
+        } else {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, mUrlAPI + "user/login?username=" + username + "&password=" + passaword, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    userprofile = PerfilJsonParser.parseJsonDadosPessoal(response);
+
+                    if (perfilListener != null)
+                        perfilListener.onRefreshPerfil((Perfil) userprofile);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, "erro", Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public Perfil getUserprofile() {
+        return (Perfil) userprofile;
+    }
+
+    public void logout(){
+        userprofile = null;
+    }
+
+//endregion
+    
 }

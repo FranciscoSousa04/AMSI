@@ -2,16 +2,18 @@ package com.example.rentallmotorbike.modelo;
 
 public class Perfil {
     private int id, telemovel, nif,nrcarta;
-    private String nome, apelido, imgPerfil;
+    private String nome, apelido, imgPerfil, username, role, email;
 
-    public Perfil(int id, String nome, String apelido, /*String imgPerfil,*/ int telemovel, int nif,int nrcarta) {
+    public Perfil(int id, String nome, String apelido,String username,int telemovel, int nif,int nrcarta, String role, String email) {
         this.id = id;
+        this.username = username;
         this.nome = nome;
         this.apelido = apelido;
-        //this.imgPerfil = imgPerfil;
         this.telemovel = telemovel;
         this.nif = nif;
         this.nrcarta=nrcarta;
+        this.role = role;
+        this.email = email;
     }
 
     public int getId() {
@@ -22,6 +24,13 @@ public class Perfil {
         this.id = idDados;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getNome() {
         return nome;
     }
@@ -36,14 +45,6 @@ public class Perfil {
 
     public void setApelido(String apelido) {
         this.apelido = apelido;
-    }
-
-    public String getImgPerfil() {
-        return imgPerfil;
-    }
-
-    public void setImgPerfil(String imgPerfil) {
-        this.imgPerfil = imgPerfil;
     }
 
     public int getTelemovel() {
@@ -68,5 +69,21 @@ public class Perfil {
 
     public void setNrCarta(Integer nrcarta) {
         this.nrcarta = nrcarta;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

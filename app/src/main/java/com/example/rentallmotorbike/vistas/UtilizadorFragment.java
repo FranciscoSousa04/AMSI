@@ -82,6 +82,7 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SingletonGestorMotociclos.getInstance(getContext()).logout();
                 Intent intent = new Intent(view.getContext(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
