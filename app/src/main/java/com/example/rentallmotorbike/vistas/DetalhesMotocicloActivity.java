@@ -64,13 +64,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         });
 
         motociclo = SingletonGestorMotociclos.getInstance(getApplicationContext()).getMotociclo(idmotociclo);
-        if (motociclo != null) {
-            carregarMotociclo();
-            fabGuardar.setImageResource(R.drawable.ic_action_favorito);
-        } else {
-            setTitle("Adicionar Motociclo");
-            fabGuardar.setImageResource(R.drawable.ic_action_adicionar);
-        }
+
 
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +96,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
 
         Glide.with(this)
               .load(motociclo.getDescricao())
-             .placeholder(R.drawable.logo)
+             .placeholder(R.drawable.logo2)
              .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imgCapa);
     }

@@ -58,6 +58,8 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_utilizador, container, false);
         user  = SingletonGestorMotociclos.getInstance(getContext()).getUserprofile();
@@ -67,8 +69,12 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
         id = sharedPreferences.getInt("id", -1);
 
 
+
         logout = (TextView) view.findViewById(R.id.LogOut);
-        imgCapa = view.findViewById(R.id.imageView);
+        imgCapa = view.findViewById(R.id.imgCapa);
+        imgCapa.setImageResource(R.drawable.perfil);
+
+
 
         etNome = view.findViewById(R.id.etNome);
         etApelido = view.findViewById(R.id.etApelido);

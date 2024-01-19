@@ -5,23 +5,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
 
 public class IPActivity extends AppCompatActivity {
 
     private EditText etIP;
     private Button btnIP;
+    private ImageView imgCapa;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ipactivity);
 
+
         etIP = findViewById(R.id.etIP);
         btnIP = findViewById(R.id.btnIP);
+        imgCapa = findViewById(R.id.imageView);
+
+        Glide.with(this)
+                .load(IPActivity.this)
+                .placeholder(R.drawable.logo2)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgCapa);
 
         btnIP.setOnClickListener(new View.OnClickListener() {
             @Override

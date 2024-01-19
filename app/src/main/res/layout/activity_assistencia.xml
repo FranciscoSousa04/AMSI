@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="306dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo2" />
 
             <TextView
                 android:id="@+id/textView16"

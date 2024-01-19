@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
+import com.example.rentallmotorbike.listeners.ReservasListener;
 import com.example.rentallmotorbike.modelo.Motociclo;
 import com.example.rentallmotorbike.modelo.Reserva;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
@@ -59,6 +60,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_motociclo);
+       // SingletonGestorMotociclos.getInstance(this).setReservasListener((ReservasListener) this);
         etMarca = findViewById(R.id.etMarca);
         etDatal = findViewById(R.id.etDataL);
         etDataD = findViewById(R.id.etDataD);
@@ -94,8 +96,8 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
             Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
             return;
         }
-        btnReservar = findViewById(R.id.btnReservar);
-        btnReservar.setOnClickListener(new View.OnClickListener() {
+      /* btnReservar = findViewById(R.id.btnReservar);
+       btnReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(etDataD.getText() == null || etDatal.getText() == null){
@@ -103,12 +105,12 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
                     return;
                 } else {
                     //get singleton adicionar reserva
-                    criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
+                  criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
                     iniciarFaturaActivity();
                 }
             }
         });
-
+*/
         motociclo = SingletonGestorMotociclos.getInstance(getApplicationContext()).getMotociclo(idmotociclo);
         if(motociclo != null){
             carregarMotociclo();
@@ -117,10 +119,23 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         }
 
     }
+   public void onClickReserva(View view) {
+        Toast.makeText(this, "Reserva Feita com Sucesso!", Toast.LENGTH_LONG).show();
+
+       if(etDataD.getText() == null || etDatal.getText() == null){
+           Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
+           return;
+       } else {
+           //get singleton adicionar reserva
+           SingletonGestorMotociclos.getInstance(this).adicionarReservaAPI(this,etDatal.getText().toString(),etDataD.getText().toString(),motociclo.getId(),dpwnseguro.getId(),dpwdn_localizacaol.toString(),dpwn_localizacaod.toString(),0,0,0,0);
+         // iniciarFaturaActivity();
+       }
+
+    }
 
 
  //passar para o singleton
-    private void criarReserva(int idprofile, int idmotociclo, int idseguro, String datal, String dataD, int idLocalizacaol, int idLocalizacaod) {
+   /* private void criarReserva(int idprofile, int idmotociclo, int idseguro, String datal, String dataD, int idLocalizacaol, int idLocalizacaod) {
         String url = SingletonGestorMotociclos.mUrlAPI + "motociclo/create?data_inicio=" + datal + "&data_fim=" + dataD + "&motociclo_id=" + idmotociclo + "profile_id=" + idprofile + "&id=1&seguro_id=" + idseguro + "&localizacaol=" + idLocalizacaol + "&localizacaod=" + idLocalizacaod;
         JSONObject jsonBody = new JSONObject();
         try {
@@ -161,7 +176,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         };
         RequestQueue requestQueue = Volley.newRequestQueue(ReservaMotocicloActivity.this);
         requestQueue.add(jsonObjectRequest);
-    }
+    } */
 
     private void getDropdownSeguro() {
         String url = SingletonGestorMotociclos.mUrlAPI + "seguro";
@@ -324,9 +339,10 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
 
         Glide.with(this)
                 .load(motociclo.getDescricao())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.logo2)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgCapa);
     }
+
 
 }

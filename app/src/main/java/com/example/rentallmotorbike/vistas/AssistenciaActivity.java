@@ -130,7 +130,7 @@ public class AssistenciaActivity extends AppCompatActivity {
         etDataPedido.setText(format.format(calendar.getTime()));
         Glide.with(this)
                 .load(motociclo.getDescricao())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.logo2)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgCapa);
 

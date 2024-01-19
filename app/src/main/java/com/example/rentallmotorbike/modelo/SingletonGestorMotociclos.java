@@ -24,6 +24,7 @@ import com.example.rentallmotorbike.utils.PerfilJsonParser;
 import com.example.rentallmotorbike.utils.ReservasJsonParser;
 import com.example.rentallmotorbike.vistas.LoginActivity;
 import com.example.rentallmotorbike.vistas.MenuMainActivity;
+import com.example.rentallmotorbike.vistas.ReservaMotocicloActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -125,16 +126,21 @@ public class SingletonGestorMotociclos {
     }
 
 
-    public void adicionarMotocicloAPI(final Motociclo motociclo, final Context context) {
-        if (!MotociclosJsonParser.isConnectionInternet(context))
+    public void adicionarReservaAPI(final Context context,String data_inicio,String data_fim,int motociclo_id, int seguro_id, String localizacao_levantamento, String localizacao_devulocao ,int extraCapete, int extraBotas, int extraLuvas, int extraSidecar) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", "");
+        if (ip != null && !ip.isEmpty()){
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+        }
+        if (!ReservasJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
         else {
-            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPI + "motociclo", new Response.Listener<String>() {
+            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPI + "reserva/create", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    //adicionarMotocicloBD(MotociclosJsonParser.parserJsonMotociclo(response));
-                    if (detalhesListener != null)
-                        detalhesListener.onRefreshDetalhes(MenuMainActivity.ADD);
+
+                    //if (reservasListener != null)
+                       // reservasListener.onRefreshListaReservas(ReservaMotocicloActivity);
 
                 }
             }, new Response.ErrorListener() {
@@ -143,15 +149,22 @@ public class SingletonGestorMotociclos {
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }) {
+                private Perfil username= getUserprofile();
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
                     params.put("token", TOKEN);
-                    params.put("marca", motociclo.getMarca());
-                    params.put("modelo", motociclo.getModelo());
-                    params.put("combustive", motociclo.getCombustivel());
-                    params.put("preco", motociclo.getPreco() + "");
-                    params.put("descricao", motociclo.getDescricao());
+                    params.put("data_inicio", data_inicio);
+                    params.put("data_fim", data_fim);
+                    params.put("motociclo_id",motociclo_id + "");
+                    params.put("profile_id",29+"");
+                    params.put("seguro_id", 2+"");
+                    params.put("localizacao_levantamento", 2+"");
+                    params.put("localizacao_devulocao", 2+"");
+                    params.put("extraCapete",extraCapete+"");
+                    params.put("extraLuvas",extraLuvas+"");
+                    params.put("extraBotas",extraBotas+"");
+                    params.put("extraSidecar",extraSidecar+"");
                     return params;
                 }
             };
@@ -232,7 +245,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
@@ -273,7 +286,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ExtraJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -335,7 +348,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -365,7 +378,7 @@ public class SingletonGestorMotociclos {
         String ip = sharedPreferences.getString("ip", "");
 
         if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
         } else {
@@ -440,5 +453,7 @@ public class SingletonGestorMotociclos {
     }
 
 //endregion
+
+
 
 }

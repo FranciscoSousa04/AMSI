@@ -87,7 +87,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
         if (item.getItemId() == R.id.utilizador) {
             fragment = new UtilizadorFragment();
             setTitle(item.getTitle());
-        } else if (item.getItemId() == R.id.pesquisar) {
+        } else if (item.getItemId() == R.id.pesquisar)  {
             fragment = new ListaMotociclosFragment();
             setTitle(item.getTitle());
         } else if (item.getItemId() == R.id.reservas) {

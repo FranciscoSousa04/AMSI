@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_weight="0.5"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo2" />
 
 
             <LinearLayout
@@ -177,12 +177,30 @@
                     android:spinnerMode="dropdown" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Extra"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/dpwn_extra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
+
             <Button
                 android:id="@+id/btnReservar"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:text="Guardar" />
+                android:text="Reservar!"
+                android:onClick="onClickReserva"/>
 
             <Space
                 android:layout_width="match_parent"
