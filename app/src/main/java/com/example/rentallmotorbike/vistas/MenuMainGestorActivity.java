@@ -49,7 +49,7 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
         toggle.syncState();
         drawer.addDrawerListener(toggle);
 
-        carregarCabecalho();
+
         navigationView.setNavigationItemSelectedListener(this);
         fragmentManager = getSupportFragmentManager();
         carregarFragmentoInicial();
@@ -71,22 +71,7 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
         return onNavigationItemSelected(item);
     }
 
-    private void carregarCabecalho() {
-        email = getIntent().getStringExtra(EMAIL);
-        SharedPreferences sharedInfoUser = getSharedPreferences(SHARED_FILE, Context.MODE_PRIVATE);
-        if(email != null){
-            SharedPreferences.Editor editor = sharedInfoUser.edit();
-            editor.putString(EMAIL, email);
-            editor.apply();
-        } else
-            email = sharedInfoUser.getString(EMAIL, "Sem Email");
 
-
-        View hview = navigationView.getHeaderView(0);
-        TextView tvEmail = hview.findViewById(R.id.tvEmail);
-        tvEmail.setText(email);
-        
-    }
 
 
     private void logout() {

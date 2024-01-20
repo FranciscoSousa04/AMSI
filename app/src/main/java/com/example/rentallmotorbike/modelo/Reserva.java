@@ -5,7 +5,7 @@ public class Reserva {
     private int id, motociclo_id, profile_id, seguro_id, preco;
     private String data_inicio, data_fim, marca, modelo, seguro, localizacao_levantamento, localizacao_devolucao;
 
-    public Reserva(int id, String data_inicio, String data_fim, int motociclo_id, String marca, String modelo, int profile_id, int seguro_id, String seguro, String localizacao_levantamento, String localizacao_devolucao, int preco) {
+    public Reserva(int id, String data_inicio, String data_fim, int motociclo_id, String marca, String modelo, int profile_id, int seguro_id, String localizacao_levantamento, String localizacao_devolucao, int preco) {
         this.id = id;
         this.data_inicio = data_inicio;
         this.data_fim = data_fim;
@@ -14,7 +14,6 @@ public class Reserva {
         this.modelo = modelo;
         this.profile_id = profile_id;
         this.seguro_id = seguro_id;
-        this.seguro = seguro;
         this.localizacao_levantamento = localizacao_levantamento;
         this.localizacao_devolucao = localizacao_devolucao;
         this.preco = preco;
@@ -84,13 +83,7 @@ public class Reserva {
         this.seguro_id = seguro_id;
     }
 
-    public String getSeguro() {
-        return seguro;
-    }
 
-    public void setSeguro(String seguro) {
-        this.seguro = seguro;
-    }
 
     public String getLocalizacao_levantamento() {
         return localizacao_levantamento;

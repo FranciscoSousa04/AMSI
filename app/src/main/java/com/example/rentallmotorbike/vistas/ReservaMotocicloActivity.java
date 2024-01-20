@@ -60,6 +60,8 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_motociclo);
+
+
        // SingletonGestorMotociclos.getInstance(this).setReservasListener((ReservasListener) this);
         etMarca = findViewById(R.id.etMarca);
         etDatal = findViewById(R.id.etDataL);
@@ -85,7 +87,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         dpwn_localizacaod.setAdapter(adapter);
         dpwn_localizacaod.setOnItemSelectedListener(this);
 
-        ctnrextras = findViewById(R.id.container_extras);
+        //ctnrextras = findViewById(R.id.container_extras);
 
 
 
@@ -96,21 +98,23 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
             Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
             return;
         }
-      /* btnReservar = findViewById(R.id.btnReservar);
+      btnReservar = findViewById(R.id.btnReservar);
        btnReservar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if(etDataD.getText() == null || etDatal.getText() == null){
                     Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
                     return;
                 } else {
                     //get singleton adicionar reserva
-                  criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
-                    iniciarFaturaActivity();
+                    SingletonGestorMotociclos.getInstance(view.getContext()).adicionarReservaAPI(view.getContext(),etDatal.getText().toString(),etDataD.getText().toString(),motociclo.getId(),dpwnseguro.getId(),dpwdn_localizacaol.toString(),dpwn_localizacaod.toString(),0,0,0,0);
+
+                    //criarReserva(idprofile, idmotociclo, idseguro, etDatal.getText().toString(), etDataD.getText().toString(), idLocalizacaol, idLocalizacaod);
+                    //iniciarFaturaActivity();
                 }
             }
         });
-*/
+
         motociclo = SingletonGestorMotociclos.getInstance(getApplicationContext()).getMotociclo(idmotociclo);
         if(motociclo != null){
             carregarMotociclo();
@@ -119,8 +123,8 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         }
 
     }
-   public void onClickReserva(View view) {
-        Toast.makeText(this, "Reserva Feita com Sucesso!", Toast.LENGTH_LONG).show();
+  /* public void onClickReserva(View view) {
+
 
        if(etDataD.getText() == null || etDatal.getText() == null){
            Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
@@ -129,9 +133,13 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
            //get singleton adicionar reserva
            SingletonGestorMotociclos.getInstance(this).adicionarReservaAPI(this,etDatal.getText().toString(),etDataD.getText().toString(),motociclo.getId(),dpwnseguro.getId(),dpwdn_localizacaol.toString(),dpwn_localizacaod.toString(),0,0,0,0);
          // iniciarFaturaActivity();
+           Toast.makeText(this, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
+
+
        }
 
-    }
+    }*/
+
 
 
  //passar para o singleton
@@ -320,7 +328,6 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         Intent intent = new Intent(ReservaMotocicloActivity.this, FaturaActivity.class);
         intent.putExtra("MARCA", reserva.getMarca());
         intent.putExtra("MODELO", reserva.getModelo());
-        intent.putExtra("SEGURO", reserva.getSeguro());
         intent.putExtra("LOCAL_LEVANTAMENTO", reserva.getLocalizacao_levantamento());
         intent.putExtra("DATA_LEVANTAMENTO", reserva.getData_inicio());
         intent.putExtra("LOCAL_DEVOLUCAO", reserva.getLocalizacao_devolucao());
@@ -339,7 +346,7 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
 
         Glide.with(this)
                 .load(motociclo.getDescricao())
-                .placeholder(R.drawable.logo2)
+                .placeholder(R.drawable.logo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgCapa);
     }

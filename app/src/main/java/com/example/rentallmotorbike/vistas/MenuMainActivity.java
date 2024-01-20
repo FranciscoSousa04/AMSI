@@ -75,8 +75,8 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
 
 
         View hView = navigationView.getHeaderView(0);
-        TextView tvEmail = hView.findViewById(R.id.tvEmail);
-        tvEmail.setText(email);
+
+        //tvEmail.setText(email);
 
     }
 

@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_weight="0.5"
-                android:src="@drawable/logo2" />
+                android:src="@drawable/logo" />
 
 
             <LinearLayout
@@ -99,22 +99,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_extras"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/container_extras"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="invisible"></LinearLayout>
-
-            <TextView
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,24 +159,8 @@
                     android:layout_weight="0.5"
                     android:background="@android:drawable/btn_dropdown"
                     android:spinnerMode="dropdown" />
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Extra"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/dpwn_extra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown" />
 
             <Button
                 android:id="@+id/btnReservar"

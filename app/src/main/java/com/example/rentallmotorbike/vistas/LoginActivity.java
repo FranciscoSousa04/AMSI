@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements PerfilListener {
 
         Glide.with(this)
                 .load(LoginActivity.this)
-                .placeholder(R.drawable.logo2)
+                .placeholder(R.drawable.logo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgCapa);
 
