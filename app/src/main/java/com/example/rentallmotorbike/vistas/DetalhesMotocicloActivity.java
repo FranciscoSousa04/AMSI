@@ -64,22 +64,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         });
 
         motociclo = SingletonGestorMotociclos.getInstance(getApplicationContext()).getMotociclo(idmotociclo);
-
-
-        fabGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseHelper myDb;
-
-                // Initialize the database helper in onCreate() method
-                myDb = new DatabaseHelper(getApplicationContext());
-
-                // To insert data
-                myDb.insertData(idprofile + "", motociclo.getMarca() + " " + motociclo.getModelo());
-                Toast.makeText(DetalhesMotocicloActivity.this, "Adicionado ao carrinho com sucesso", Toast.LENGTH_LONG).show();
-
-            }
-        });
+        carregarMotociclo();
 
     }
 
@@ -96,7 +81,7 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
 
         Glide.with(this)
               .load(motociclo.getDescricao())
-             .placeholder(R.drawable.logo2)
+             .placeholder(R.drawable.logo)
              .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imgCapa);
     }

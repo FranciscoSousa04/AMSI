@@ -59,7 +59,6 @@ public class ReservaBDHelper extends SQLiteOpenHelper {
         values.put(MODELO, reserva.getModelo());
         values.put(PROFILE_ID, reserva.getProfile_id());
         values.put(SEGURO_ID, reserva.getSeguro_id());
-        values.put(SEGURO, reserva.getSeguro());
         values.put(LOCALIZACAO_LEVANTAMENTO, reserva.getLocalizacao_levantamento());
         values.put(LOCALIZACAO_DEVOLUCAO, reserva.getLocalizacao_devolucao());
         values.put(PRECO, reserva.getPreco());
@@ -82,7 +81,7 @@ public class ReservaBDHelper extends SQLiteOpenHelper {
         values.put(MODELO, reserva.getModelo());
         values.put(PROFILE_ID, reserva.getProfile_id());
         values.put(SEGURO_ID, reserva.getSeguro_id());
-        values.put(SEGURO, reserva.getSeguro());
+
         values.put(LOCALIZACAO_LEVANTAMENTO, reserva.getLocalizacao_levantamento());
         values.put(LOCALIZACAO_DEVOLUCAO, reserva.getLocalizacao_devolucao());
         values.put(PRECO, reserva.getPreco());
@@ -118,7 +117,7 @@ public class ReservaBDHelper extends SQLiteOpenHelper {
                 String localizacao_levantamento = cursor.getString(9);
                 String localizacao_devolucao = cursor.getString(10);
                 int preco = cursor.getInt(11);
-                Reserva reserva = new Reserva(id, data_inicio, data_fim, motociclo_id, marca, modelo, profile_id, seguro_id, seguro, localizacao_levantamento, localizacao_devolucao, preco);
+                Reserva reserva = new Reserva(id, data_inicio, data_fim, motociclo_id, marca, modelo, profile_id, seguro_id, localizacao_levantamento, localizacao_devolucao, preco);
                 reservas.add(reserva);
             } while (cursor.moveToNext());
         }

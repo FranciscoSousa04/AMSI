@@ -132,7 +132,7 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
             jsonBody.put("apelido", apelido);
             jsonBody.put("telemovel", telemovel + "");
             jsonBody.put("nif", nif + "");
-            jsonBody.put("nr_carta_conducao", carta + "");
+
             //jsonBody.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
