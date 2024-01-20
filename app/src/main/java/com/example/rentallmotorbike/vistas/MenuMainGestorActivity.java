@@ -42,7 +42,6 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
         checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
         setContentView(R.layout.activity_menu_main_gestor);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
@@ -54,6 +53,14 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
         navigationView.setNavigationItemSelectedListener(this);
         fragmentManager = getSupportFragmentManager();
         carregarFragmentoInicial();
+
+        if (ContextCompat.checkSelfPermission(MenuMainGestorActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Request the camera permission
+            checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
+        } else {
+            // Camera permission is granted, continue with the task that requires the permission
+            Toast.makeText(MenuMainGestorActivity.this,"PermissÃ£o Garantida", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -119,7 +126,12 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
         if (ContextCompat.checkSelfPermission(MenuMainGestorActivity.this,permission) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(MenuMainGestorActivity.this, new String[]{permission}, requestCode);
         } else{
-            Toast.makeText(MenuMainGestorActivity.this,"Permissâo Garantida", Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(MenuMainGestorActivity.this,"Permissâo Garantida", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Toast.makeText(MenuMainGestorActivity.this,"Permissâo Garantida", Toast.LENGTH_SHORT).show();
         }
 
     }
