@@ -69,7 +69,6 @@ public class ListaReservaFragment extends Fragment implements ReservasListener {
     }
 
 
-
     public void showMessage(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);

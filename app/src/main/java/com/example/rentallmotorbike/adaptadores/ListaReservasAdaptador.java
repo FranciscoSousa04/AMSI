@@ -109,6 +109,7 @@ public class ListaReservasAdaptador extends BaseAdapter {
                     SingletonGestorMotociclos.getInstance(view.getContext()).removerReservaAPI(view.getContext(),reserva.getId());
                     Toast.makeText(context, "Reserva Eliminada com Sucesso!", Toast.LENGTH_LONG).show();
 
+
                 }
             });
 

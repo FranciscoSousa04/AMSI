@@ -222,8 +222,9 @@ public class SingletonGestorMotociclos {
                 public void onResponse(String response) {
                     if (reservasListener != null)
                         reservasListener.onRefreshListaReservas(reservas);
-
                 }
+
+
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {

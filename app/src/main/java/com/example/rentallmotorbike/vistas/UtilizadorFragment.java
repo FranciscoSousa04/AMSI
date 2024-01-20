@@ -125,7 +125,7 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
     }
 
     private void UpdatePerfil(String nome, String apelido, String telemovel, String nif, String carta) {
-        String url = SingletonGestorMotociclos.mUrlAPI + "user/updateprofile?id=" + id;
+       String url = SingletonGestorMotociclos.mUrlAPI + "user/updateprofile?id=" + id;
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("nome", nome);
@@ -215,13 +215,13 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
     @Override
     public void onRefreshPerfil(Perfil perfil) {
         if (perfil != null) {
-            /*etNome.setText(perfil.getNome());
+            etNome.setText(perfil.getNome());
             etApelido.setText(perfil.getApelido());
             etTelefone.setText(perfil.getTelemovel() + "");
             etNif.setText(perfil.getNif() + "");
             etNrCarta.setText(perfil.getNif() + "");
             etEmail.setText(email);
-            etUsername.setText(username);*/
+            etUsername.setText(username);
             Glide.with(this)
                  .load(getActivity())
                  .placeholder(R.drawable.user)
