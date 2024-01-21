@@ -22,10 +22,6 @@ import com.example.rentallmotorbike.utils.ExtraJsonParser;
 import com.example.rentallmotorbike.utils.MotociclosJsonParser;
 import com.example.rentallmotorbike.utils.PerfilJsonParser;
 import com.example.rentallmotorbike.utils.ReservasJsonParser;
-import com.example.rentallmotorbike.vistas.ListaMotociclosFragment;
-import com.example.rentallmotorbike.vistas.LoginActivity;
-import com.example.rentallmotorbike.vistas.MenuMainActivity;
-import com.example.rentallmotorbike.vistas.ReservaMotocicloActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +36,7 @@ public class SingletonGestorMotociclos {
     private ArrayList<Motociclo> motociclos;
     private static SingletonGestorMotociclos instance = null;
     private MotocicloBDHelper motociclosBD;
+    private ReservaBDHelper reservasBD;
     private static RequestQueue volleyQueue = null;
     public static String mUrlAPI = "";
     private static final String TOKEN = "AMSI-TOKEN";
@@ -69,6 +66,7 @@ public class SingletonGestorMotociclos {
     private SingletonGestorMotociclos(Context context) {
         motociclos = new ArrayList<>();
         motociclosBD = new MotocicloBDHelper(context);
+        reservasBD = new ReservaBDHelper(context);
     }
 
     public void setMotociclosListener(MotociclosListener motociclosListener) {
@@ -88,7 +86,7 @@ public class SingletonGestorMotociclos {
     }
 
 
-    //region LIVRO-BD
+    //region Moto-BD
 
     public ArrayList<Motociclo> getMotociclosBD() {
         motociclos = motociclosBD.getAllMotocicloBD();
@@ -103,28 +101,67 @@ public class SingletonGestorMotociclos {
     }
 
     public void adicionarMotocicloBD(Motociclo motociclo) {
-        motociclosBD.adicionarLivroBD(motociclo);
+        motociclosBD.adicionarMotocicloBD(motociclo);
     }
 
     public void adicionarMotociclosBD(ArrayList<Motociclo> motociclos) {
-        motociclosBD.removerAllLivrosBD();
+        motociclosBD.removerAllMotociclosBD();
         for (Motociclo l : motociclos)
             adicionarMotocicloBD(l);
     }
 
-    public void removerVeiculoBD(int id) {
+    public void removerMotocicloBD(int id) {
         Motociclo motocicloAux = getMotociclo(id);
         if (motocicloAux != null) {
-            if (motociclosBD.removerLivroBD(id)) ;
+            if (motociclosBD.removerMotocicloBD(id)) ;
         }
     }
 
-    public void editarVeiculoBD(Motociclo motociclo) {
+    public void editarMotocicloBD(Motociclo motociclo) {
         Motociclo motocicloAux = getMotociclo(motociclo.getId());
         if (motocicloAux != null) {
-            motociclosBD.editarLivroBD(motociclo);
+            motociclosBD.editarMotocicloBD(motociclo);
         }
     }
+
+    //Reservas BD
+    public ArrayList<Reserva> getReservasBD() {
+        reservas = reservasBD.getAllReservaBD();
+        return new ArrayList(reservas);
+    }
+
+    public Reserva getReservaBD(int id) {
+        for (Reserva l : reservas)
+            if (l.getId() == id)
+                return l;
+        return null;
+    }
+
+    public void adicionarReservaBD(Reserva reserva) {
+        reservasBD.adicionarReservaBD(reserva);
+    }
+
+    public void adicionarReservaBD(ArrayList<Reserva> reservas) {
+        reservasBD.removerAllReservasBD();
+        for (Reserva l : reservas)
+            adicionarReservaBD(l);
+    }
+
+    public void removerReservaBD(int id) {
+        Reserva reservaAux = getReservaBD(id);
+        if (reservaAux != null) {
+            if (reservasBD.removerReservaBD(id)) ;
+        }
+    }
+
+    public void editarReservaBD(Reserva reserva) {
+        Reserva reservaAux = getReservaBD(reserva.getId());
+        if (reservaAux != null) {
+            reservasBD.editarReservaBD(reserva);
+        }
+    }
+
+    //endregion
 
 
     public void adicionarReservaAPI(final Context context,String data_inicio,String data_fim,int motociclo_id, int seguro_id, String localizacao_levantamento, String localizacao_devulocao ,int extraCapete, int extraBotas, int extraLuvas, int extraSidecar) {
@@ -217,6 +254,7 @@ public class SingletonGestorMotociclos {
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
         else {
+            //Request metodo devia estar em delete mas esta em get porque o servidor nao esta a aceitar o delete
             StringRequest req = new StringRequest(Request.Method.GET, mUrlAPI + "reserva/removerreserva?id=" + id, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -237,7 +275,8 @@ public class SingletonGestorMotociclos {
 
     }
 
-    public void editarPerfilAPI(final Context context) {
+    public void editarPerfilAPI(final Context context, String username, String email, String nome, String apelido, String telemovel, String nif, String carta)
+    {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
          Perfil userprofile= getUserprofile();
@@ -247,7 +286,7 @@ public class SingletonGestorMotociclos {
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
         else {
-            StringRequest req = new StringRequest(Request.Method.PUT, mUrlAPI + "user/updateprofile/id?=" +  userprofile.getId(), new Response.Listener<String>() {
+            StringRequest req = new StringRequest(Request.Method.PUT, mUrlAPI + "user/updateuser?id=" +  userprofile.getId(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (perfilListener != null)
@@ -262,11 +301,13 @@ public class SingletonGestorMotociclos {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("nome", userprofile.getNome());
-                    params.put("apelido", userprofile.getApelido());
-                    params.put("email", userprofile.getEmail());
-                    params.put("telemovel", userprofile.getTelemovel() + "");
-                    params.put("nif", userprofile.getNif()+"");
+                    params.put("username", username);
+                    params.put("email", email);
+                    params.put("nome", nome);
+                    params.put("apelido", apelido);
+                    params.put("telemovel", telemovel);
+                    params.put("nif", nif);
+                    params.put("carta", carta);
                     return params;
                 }
             };
@@ -304,39 +345,6 @@ public class SingletonGestorMotociclos {
     }
 //endregion
 
-    //region métodos getDadosPessoais
- /*   public Perfil getPerfilAPI(final Context context, int id) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
-        String ip = sharedPreferences.getString("ip", "");
-
-        if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "https://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
-        }
-        if (!PerfilJsonParser.isConnectionInternet(context)) {
-            Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
-        } else {
-            StringRequest req = new StringRequest(Request.Method.GET, mUrlAPI + "user/viewprofile?id=" + id, new Response.Listener<String>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    perfil = PerfilJsonParser.parseJsonDadosPessoal(response);
-
-                    if (perfilListener != null)
-                        perfilListener.onRefreshPerfil(perfil);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            volleyQueue.add(req);
-            return perfil;
-        }
-        return null;
-    }*/
-
-//endregion
-
     //region métodos getDadosReserva
     public void getReservaAPI(final Context context, int id) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
@@ -347,11 +355,17 @@ public class SingletonGestorMotociclos {
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
+
+            if (reservasListener != null)
+                reservasListener.onRefreshListaReservas(reservasBD.getAllReservaBD());
+
         } else {
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "reserva/reservas?id=" + id, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     reservas = ReservasJsonParser.parserJsonReservas(response);
+
+                    adicionarReservaBD(reservas);
 
                     if (reservasListener != null)
                         reservasListener.onRefreshListaReservas(reservas);
@@ -375,12 +389,18 @@ public class SingletonGestorMotociclos {
         if (ip != null && !ip.isEmpty()){
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
+
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
+            if (reservasListener != null)
+                reservasListener.onRefreshListaReservas(reservasBD.getAllReservaBD());
+
         } else {
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "reserva/todasreservas", null,new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     reservas = ReservasJsonParser.parserJsonReservas(response);
+
+                    adicionarReservaBD(reservas);
 
                     if (reservasListener != null)
                         reservasListener.onRefreshListaReservas(reservas);

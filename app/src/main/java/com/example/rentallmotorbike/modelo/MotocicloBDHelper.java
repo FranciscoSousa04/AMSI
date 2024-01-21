@@ -44,8 +44,8 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
         this.onCreate(sqLiteDatabase);
     }
 
-    public Motociclo adicionarLivroBD(Motociclo motociclo) {
-        removerAllLivrosBD();
+    public Motociclo adicionarMotocicloBD(Motociclo motociclo) {
+        removerAllMotociclosBD();
         ContentValues values = new ContentValues();
         values.put(ID, motociclo.getId());
         values.put(MARCA, motociclo.getMarca());
@@ -64,7 +64,7 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public boolean editarLivroBD(Motociclo motociclo) {
+    public boolean editarMotocicloBD(Motociclo motociclo) {
 
         ContentValues values = new ContentValues();
         values.put(MARCA, motociclo.getMarca());
@@ -78,12 +78,12 @@ public class MotocicloBDHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean removerLivroBD(int id) {
+    public boolean removerMotocicloBD(int id) {
         return db.delete(TABLE_MOTOCICLOS, ID + "=?", new String[]{id + ""}) == 1;
     }
 
 
-    public void removerAllLivrosBD() {
+    public void removerAllMotociclosBD() {
         db.delete(TABLE_MOTOCICLOS, null, null);
 
     }

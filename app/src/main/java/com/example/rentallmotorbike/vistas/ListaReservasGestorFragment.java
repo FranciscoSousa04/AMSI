@@ -14,7 +14,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.example.rentallmotorbike.R;
-import com.example.rentallmotorbike.adaptadores.ListaReservasAdaptador;
+import com.example.rentallmotorbike.adaptadores.ListaReservasGestorAdaptador;
 import com.example.rentallmotorbike.listeners.ReservasListener;
 import com.example.rentallmotorbike.modelo.Reserva;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
@@ -57,6 +57,6 @@ public class ListaReservasGestorFragment extends Fragment implements ReservasLis
     @Override
     public void onRefreshListaReservas(ArrayList<Reserva> reservas) {
         if (reservas != null)
-            lvGReservas.setAdapter(new ListaReservasAdaptador(getContext(),reservas));
+            lvGReservas.setAdapter(new ListaReservasGestorAdaptador(getContext(),reservas));
     }
 }

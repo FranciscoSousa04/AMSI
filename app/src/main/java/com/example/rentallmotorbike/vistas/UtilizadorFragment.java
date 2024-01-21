@@ -11,29 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
 import com.example.rentallmotorbike.listeners.PerfilListener;
 import com.example.rentallmotorbike.modelo.Perfil;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class UtilizadorFragment extends Fragment implements PerfilListener {
 
@@ -109,14 +93,13 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
-                //String password = passwordEditText.getText().toString();
-                UpdateUser(username, email);
+                //UpdateUser(username, email);
                 String nome = etNome.getText().toString();
                 String apelido = etApelido.getText().toString();
                 String telemovel = etTelefone.getText().toString();
                 String nif = etNif.getText().toString();
                 String carta = etNrCarta.getText().toString();
-                UpdatePerfil(nome, apelido, telemovel, nif, carta);
+                SingletonGestorMotociclos.getInstance(getContext()).editarPerfilAPI(getContext(), username, email, nome, apelido, telemovel, nif, carta);
 
             }
         });
@@ -124,7 +107,8 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
         return view;
     }
 
-    private void UpdatePerfil(String nome, String apelido, String telemovel, String nif, String carta) {
+
+   /* private void UpdatePerfil(String nome, String apelido, String telemovel, String nif, String carta) {
        String url = SingletonGestorMotociclos.mUrlAPI + "user/updateprofile?id=" + id;
         JSONObject jsonBody = new JSONObject();
         try {
@@ -211,22 +195,18 @@ public class UtilizadorFragment extends Fragment implements PerfilListener {
         requestQueue.add(jsonObjectRequest);
 
     }
-
+*/
     @Override
     public void onRefreshPerfil(Perfil perfil) {
         if (perfil != null) {
+
+            etUsername.setText(perfil.getUsername());
+            etEmail.setText(perfil.getEmail());
             etNome.setText(perfil.getNome());
             etApelido.setText(perfil.getApelido());
             etTelefone.setText(perfil.getTelemovel() + "");
             etNif.setText(perfil.getNif() + "");
             etNrCarta.setText(perfil.getNif() + "");
-            etEmail.setText(email);
-            etUsername.setText(username);
-            Glide.with(this)
-                 .load(getActivity())
-                 .placeholder(R.drawable.user)
-                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                 .into(imgCapa);
             etNome.setText(" " + perfil.getNome() + " " + perfil.getApelido());
         }
     }

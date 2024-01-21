@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class ReservaBDHelper extends SQLiteOpenHelper {
     //create a class to save the data of the reservation locally
-    private static final String DB_NAME = "bd_motociclos";
+    private static final String DB_NAME = "bd_reservas";
     private static final int DB_VERSION = 1;
-    private static final String TABLE_RESERVAS = "reservas";
+    private static final String TABLE_RESERVAS = "Reservas";
     private static final String ID = "id_reserva", DATA_INICIO = "data_inicio", DATA_FIM = "data_fim", MOTOCICLO_ID = "motociclo_id", MARCA = "marca", MODELO = "modelo", PROFILE_ID = "profile_id", SEGURO_ID = "seguro_id", SEGURO = "seguro", LOCALIZACAO_LEVANTAMENTO = "localizacao_levantamento", LOCALIZACAO_DEVOLUCAO = "localizacao_devolucao", PRECO = "preco";
     private final SQLiteDatabase db;
 

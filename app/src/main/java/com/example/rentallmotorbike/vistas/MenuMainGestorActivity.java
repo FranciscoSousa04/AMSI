@@ -1,15 +1,11 @@
 package com.example.rentallmotorbike.vistas;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -66,7 +62,7 @@ public class MenuMainGestorActivity extends AppCompatActivity implements Navigat
 
     private boolean carregarFragmentoInicial() {
         Menu menu = navigationView.getMenu();
-        MenuItem item = menu.getItem(0);
+        MenuItem item = menu.getItem(2);
         item.setChecked(true);
         return onNavigationItemSelected(item);
     }

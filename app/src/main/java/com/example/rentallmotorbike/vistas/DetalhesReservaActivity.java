@@ -2,6 +2,8 @@ package com.example.rentallmotorbike.vistas;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +21,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 
 public class DetalhesReservaActivity extends AppCompatActivity {
@@ -27,9 +31,9 @@ public class DetalhesReservaActivity extends AppCompatActivity {
 
     private int idprofile, idreserva;
 
-    private TextView etMarca, etModelo, tvLocalL, etseguro, tvDataL, tvLocalD, tvDataD, tvPreco, tvMatricula;
+    private TextView etMarca, etModelo, tvLocalL, etseguro, tvDataL, tvLocalD, tvDataD, tvPreco;
 
-    private ImageView imgCapa;
+    private ImageView imgQr;
 
     private Button btnPedirAssistencia;
 
@@ -49,9 +53,9 @@ public class DetalhesReservaActivity extends AppCompatActivity {
         tvLocalD = findViewById(R.id.tvLocalD);
         tvDataD = findViewById(R.id.tvDataD);
         tvPreco = findViewById(R.id.tvPreco);
-        tvMatricula = findViewById(R.id.tvMatricula);
         idreserva = getIntent().getIntExtra(IDRESERVA, 0);
-        imgCapa = findViewById(R.id.imgCapa);
+        imgQr = findViewById(R.id.imgqr);
+
 
         btnPedirAssistencia = findViewById(R.id.btnPedirAssistencia);
 
@@ -66,16 +70,16 @@ public class DetalhesReservaActivity extends AppCompatActivity {
         });
 
         reserva = SingletonGestorMotociclos.getInstance(getBaseContext()).getReserva(idreserva);
+
         if (reserva != null){
-            carregarVeiculo();
+            carregarMotociclo();
         } else {
             setTitle("Adicionar Motociclo");
         }
 
-
     }
 
-    private void carregarVeiculo() {
+    private void carregarMotociclo() {
         Resources resources = getResources();
         String nome = String.format("Detalhes: ", reserva.getMarca() + "" + reserva.getModelo());
         setTitle(nome);
@@ -87,7 +91,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
         tvLocalD.setText(reserva.getLocalizacao_devolucao());
         tvDataD.setText(reserva.getData_fim() + "");
         tvPreco.setText(reserva.getPreco() + "€");
-        //imgCapa.setImageBitmap(makeqr(reserva.getId() + ""));
+        imgQr.setImageBitmap(makeqr(reserva.getId() + ""));
 
         String dateFormat1 = reserva.getData_inicio();
         String dateFormat2 = reserva.getData_fim();
@@ -109,20 +113,20 @@ public class DetalhesReservaActivity extends AppCompatActivity {
 
     }
 
-    //private Bitmap makeqr(String id) {
+    private Bitmap makeqr(String id) {
 
-      //  QRGEncoder qrgEncoder = new QRGEncoder(id , null, QRGContents.Type.TEXT, 500);
-       // qrgEncoder.setColorBlack(Color.WHITE);
-        //qrgEncoder.setColorWhite(Color.BLACK);
-        //try {
-          //  Bitmap bitmap = qrgEncoder.getBitmap();
-            //return bitmap;
-        //} catch (Exception e) {
-          //  e.printStackTrace();
-           // return null;
-        //}
+        QRGEncoder qrgEncoder = new QRGEncoder(id , null, QRGContents.Type.TEXT, 500);
+        qrgEncoder.setColorBlack(Color.WHITE);
+        qrgEncoder.setColorWhite(Color.BLACK);
+        try {
+            Bitmap bitmap = qrgEncoder.getBitmap();
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+             return null;
+        }
 
-    //}
+    }
 
 
     public boolean onCreateOptionsMenu(Menu menu){
