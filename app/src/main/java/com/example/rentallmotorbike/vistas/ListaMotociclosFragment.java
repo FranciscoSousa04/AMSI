@@ -23,9 +23,6 @@ import java.util.ArrayList;
 public class ListaMotociclosFragment extends Fragment implements MotociclosListener {
 
     private ListView lvMotociclos;
-
-    private ArrayList<Motociclo> motociclos;
-
     private SearchView searchView;
 
 

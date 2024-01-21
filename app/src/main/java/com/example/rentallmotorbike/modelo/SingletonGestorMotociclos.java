@@ -13,7 +13,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.rentallmotorbike.listeners.DetalhesListener;
 import com.example.rentallmotorbike.listeners.ExtrasListener;
 import com.example.rentallmotorbike.listeners.MotociclosListener;
 import com.example.rentallmotorbike.listeners.PerfilListener;
@@ -39,10 +38,7 @@ public class SingletonGestorMotociclos {
     private ReservaBDHelper reservasBD;
     private static RequestQueue volleyQueue = null;
     public static String mUrlAPI = "";
-    private static final String TOKEN = "AMSI-TOKEN";
     private MotociclosListener motociclosListener;
-
-    private DetalhesListener detalhesListener;
 
     private ExtrasListener extrasListener;
     private ArrayList<Extras> extras;
@@ -75,14 +71,6 @@ public class SingletonGestorMotociclos {
 
     public void setReservasListener(ReservasListener reservasListener) {
         this.reservasListener = reservasListener;
-    }
-
-    public void setDetalhesListener(DetalhesListener detalhesListener) {
-        this.detalhesListener = detalhesListener;
-    }
-
-    public void setDadosPessoaisListener(PerfilListener perfilListener) {
-        this.perfilListener = perfilListener;
     }
 
 

@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,13 +20,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rentallmotorbike.R;
-import com.example.rentallmotorbike.listeners.ReservasListener;
 import com.example.rentallmotorbike.modelo.Motociclo;
 import com.example.rentallmotorbike.modelo.Reserva;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
@@ -50,10 +47,8 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
     private ImageView imgCapa;
     private Button btnReservar;
     public static final String IDMOTOCICLO = "IDMOTOCICLO";
-    public static final int MIN_CHAR = 3;
-    public static final int MIN_NUMERO = 4;
     private Spinner dpwnseguro, dpwdn_localizacaol, dpwn_localizacaod;
-    private LinearLayout ctnrextras;
+
 
 
     @Override
@@ -123,68 +118,6 @@ public class ReservaMotocicloActivity extends AppCompatActivity implements Adapt
         }
 
     }
-  /* public void onClickReserva(View view) {
-
-
-       if(etDataD.getText() == null || etDatal.getText() == null){
-           Toast.makeText(ReservaMotocicloActivity.this, "Verifique as datas", Toast.LENGTH_LONG).show();
-           return;
-       } else {
-           //get singleton adicionar reserva
-           SingletonGestorMotociclos.getInstance(this).adicionarReservaAPI(this,etDatal.getText().toString(),etDataD.getText().toString(),motociclo.getId(),dpwnseguro.getId(),dpwdn_localizacaol.toString(),dpwn_localizacaod.toString(),0,0,0,0);
-         // iniciarFaturaActivity();
-           Toast.makeText(this, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
-
-
-       }
-
-    }*/
-
-
-
- //passar para o singleton
-   /* private void criarReserva(int idprofile, int idmotociclo, int idseguro, String datal, String dataD, int idLocalizacaol, int idLocalizacaod) {
-        String url = SingletonGestorMotociclos.mUrlAPI + "motociclo/create?data_inicio=" + datal + "&data_fim=" + dataD + "&motociclo_id=" + idmotociclo + "profile_id=" + idprofile + "&id=1&seguro_id=" + idseguro + "&localizacaol=" + idLocalizacaol + "&localizacaod=" + idLocalizacaod;
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("nome","teste");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, jsonBody,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String message = response.getString("message");
-                            int idreserva = response.getInt("idreserva");
-                            Toast.makeText(ReservaMotocicloActivity.this, message, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(ReservaMotocicloActivity.this, ListaMotociclosFragment.class);
-                            intent.putExtra(DetalhesReservaActivity.IDRESERVA, idreserva);
-                            startActivity(intent);
-                            finish();
-                        } catch (
-                                JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ReservaMotocicloActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                // you can add more headers if needed
-                return headers;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(ReservaMotocicloActivity.this);
-        requestQueue.add(jsonObjectRequest);
-    } */
 
     private void getDropdownSeguro() {
         String url = SingletonGestorMotociclos.mUrlAPI + "seguro";

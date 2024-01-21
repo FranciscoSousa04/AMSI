@@ -29,7 +29,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
 
     private Reserva reserva;
 
-    private int idprofile, idreserva;
+    private int idreserva;
 
     private TextView etMarca, etModelo, tvLocalL, etseguro, tvDataL, tvLocalD, tvDataD, tvPreco;
 
@@ -131,8 +131,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
         if(reserva != null){
-            //getMenuInflater().inflate(R.menu.menu_detalhes_moto, menu);
-            //return super.onCreateOptionsMenu(menu);
+
         }
         return false;
     }

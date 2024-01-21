@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,12 +22,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class DetalhesMotocicloActivity extends AppCompatActivity {
 
     private Motociclo motociclo;
-    private int idprofile, idmotociclo, idseguro, idLocalizacaol, idLocalizacaod;
-    private TextView etMarca, etModelo, etPreco, etCombustivel, etMatricula, etDescricao, etTipoVeiculo, etFranquia;
+    private int idprofile, idmotociclo;
+    private TextView etMarca, etModelo, etPreco, etCombustivel, etDescricao, etFranquia;
     private ImageView imgCapa;
     private FloatingActionButton fabGuardar;
     private Button btnReservar;
-    public static final String IDMOTOCICLO = "IDVEICULO";
+    public static final String IDMOTOCICLO = "IDMOTOCICLO";
     private DatabaseHelper db;
 
     @Override
@@ -39,7 +38,6 @@ public class DetalhesMotocicloActivity extends AppCompatActivity {
         etCombustivel = findViewById(R.id.etCombustivel);
         etModelo = findViewById(R.id.etModelo);
         etPreco = findViewById(R.id.etPreco);
-        etMatricula = findViewById(R.id.etMatricula);
         etDescricao = findViewById(R.id.etDescricao);
         etFranquia = findViewById(R.id.etFranquia);
 
