@@ -1,10 +1,7 @@
 package com.example.rentallmotorbike.vistas;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +12,8 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.example.rentallmotorbike.R;
-import com.example.rentallmotorbike.adaptadores.ListaMotociclosAdaptador;
 import com.example.rentallmotorbike.adaptadores.ListaReservasAdaptador;
 import com.example.rentallmotorbike.listeners.ReservasListener;
-import com.example.rentallmotorbike.modelo.Motociclo;
 import com.example.rentallmotorbike.modelo.Perfil;
 import com.example.rentallmotorbike.modelo.Reserva;
 import com.example.rentallmotorbike.modelo.SingletonGestorMotociclos;
@@ -48,15 +43,14 @@ public class ListaReservaFragment extends Fragment implements ReservasListener {
         SingletonGestorMotociclos.getInstance(getContext()).getReservaAPI(getContext(), user.getId());
 
         lvReservas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-                Intent intent = new Intent(getContext(), DetalhesReservaActivity.class);
-                intent.putExtra(DetalhesReservaActivity.IDRESERVA, (int) id);
-                startActivityForResult(intent, DETALHES);
-            }
-
-        });
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Intent intentDetalhes = new Intent(getContext(), DetalhesReservaActivity.class);
+        Reserva reserva = (Reserva) adapterView.getItemAtPosition(position);
+        intentDetalhes.putExtra(DetalhesReservaActivity.IDRESERVA, reserva.getId());
+        startActivity(intentDetalhes);
+    }
+});
 
         return view;
     }

@@ -26,6 +26,7 @@ public class ListaMotociclosFragment extends Fragment implements MotociclosListe
     private SearchView searchView;
 
 
+
     public ListaMotociclosFragment() {
     }
 
@@ -41,6 +42,10 @@ public class ListaMotociclosFragment extends Fragment implements MotociclosListe
         SingletonGestorMotociclos.getInstance(getContext()).setMotociclosListener(this);
 
         SingletonGestorMotociclos.getInstance(getContext()).getAllMotociclosAPI(getContext());
+
+        //save the data received from the API on shared preferences
+        //SingletonGestorMotociclos.getInstance(getContext()).saveData(getContext());
+
 
         lvMotociclos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

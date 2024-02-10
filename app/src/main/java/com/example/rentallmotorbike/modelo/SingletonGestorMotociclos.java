@@ -31,8 +31,10 @@ import java.util.Map;
 
 public class SingletonGestorMotociclos {
 
-    private static final int MIN_PASS = 4;
+    private static int nummotos = 0;
+    private static int precomaisalto = 0;
     private ArrayList<Motociclo> motociclos;
+    private ArrayList<Perfil> perfis;
     private static SingletonGestorMotociclos instance = null;
     private MotocicloBDHelper motociclosBD;
     private ReservaBDHelper reservasBD;
@@ -50,9 +52,8 @@ public class SingletonGestorMotociclos {
     private Perfil perfil;
 
 
-
     public static synchronized SingletonGestorMotociclos getInstance(Context context) {
-        if (instance == null){
+        if (instance == null) {
             instance = new SingletonGestorMotociclos(context);
             volleyQueue = Volley.newRequestQueue(context);
         }
@@ -79,6 +80,10 @@ public class SingletonGestorMotociclos {
     public ArrayList<Motociclo> getMotociclosBD() {
         motociclos = motociclosBD.getAllMotocicloBD();
         return new ArrayList(motociclos);
+    }
+
+    public void setDadosPessoaisListener(PerfilListener perfilListener) {
+        this.perfilListener = perfilListener;
     }
 
     public Motociclo getMotociclo(int id) {
@@ -152,10 +157,10 @@ public class SingletonGestorMotociclos {
     //endregion
 
 
-    public void adicionarReservaAPI(final Context context,String data_inicio,String data_fim,int motociclo_id, int seguro_id, String localizacao_levantamento, String localizacao_devulocao ,int extraCapete, int extraBotas, int extraLuvas, int extraSidecar) {
+    public void adicionarReservaAPI(final Context context, String data_inicio, String data_fim, int motociclo_id, int seguro_id, String localizacao_levantamento, String localizacao_devulocao, int extraCapete, int extraBotas, int extraLuvas, int extraSidecar) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ReservasJsonParser.isConnectionInternet(context))
@@ -176,14 +181,15 @@ public class SingletonGestorMotociclos {
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }) {
-                private Perfil username= getUserprofile();
+                private Perfil username = getUserprofile();
+
                 @Override
                 protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String,String>();
+                    Map<String, String> params = new HashMap<String, String>();
                     params.put("data_inicio", data_inicio);
                     params.put("data_fim", data_fim);
                     params.put("motociclo_id", motociclo_id + "");
-                    params.put("profile_id",  username.getId()+ "");
+                    params.put("profile_id", username.getId() + "");
                     params.put("seguro_id", seguro_id + "");
                     params.put("localizacao_levantamento", localizacao_levantamento + "");
                     params.put("localizacao_devulocao", localizacao_devulocao + "");
@@ -199,7 +205,7 @@ public class SingletonGestorMotociclos {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context)) {
@@ -212,8 +218,17 @@ public class SingletonGestorMotociclos {
                 @Override
                 public void onResponse(JSONArray response) {
 
+
                     motociclos = MotociclosJsonParser.parserJsonMotociclos(response);
 
+
+                    /*
+                    //save the data received from the API on shared preferences
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("motociclos", response.toString());
+                    editor.apply();
+                    */
 
                     //Add BaseDados Local
                     adicionarMotociclosBD(motociclos);
@@ -232,11 +247,57 @@ public class SingletonGestorMotociclos {
     }
 
 
-    public void removerReservaAPI(final Context context,int id) {
+    public void getAllmotociclosNumApi(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+        }
+        if (!MotociclosJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
+
+            if (motociclosListener != null)
+                motociclosListener.onRefreshListaMotociclos(motociclosBD.getAllMotocicloBD());
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "motociclo", null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    motociclos = MotociclosJsonParser.parserJsonMotociclos(response);
+
+                    for (Motociclo motociclo : motociclos) {
+                        nummotos = nummotos +1;
+                        if(motociclo.getPreco() > precomaisalto) {
+                            precomaisalto = motociclo.getPreco();
+                        }
+                    }
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public int getNummotos() {
+        return nummotos;
+    }
+
+    public int getPrecomaisalto() {
+        return precomaisalto;
+    }
+
+
+
+    public void removerReservaAPI(final Context context, int id) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", "");
+
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context))
@@ -246,6 +307,11 @@ public class SingletonGestorMotociclos {
             StringRequest req = new StringRequest(Request.Method.GET, mUrlAPI + "reserva/removerreserva?id=" + id, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    //removar reserva api
+
+                    //reservas.remove(id);
+
+
                     if (reservasListener != null)
                         reservasListener.onRefreshListaReservas(reservas);
                 }
@@ -263,18 +329,17 @@ public class SingletonGestorMotociclos {
 
     }
 
-    public void editarPerfilAPI(final Context context, String username, String email, String nome, String apelido, String telemovel, String nif, String carta)
-    {
+    public void editarPerfilAPI(final Context context, String username, String email, String nome, String apelido, String telemovel, String nif, String carta) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
-         Perfil userprofile= getUserprofile();
-        if (ip != null && !ip.isEmpty()){
+        Perfil userprofile = getUserprofile();
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!MotociclosJsonParser.isConnectionInternet(context))
             Toast.makeText(context, "Sem ligaçao a internet", Toast.LENGTH_LONG).show();
         else {
-            StringRequest req = new StringRequest(Request.Method.PUT, mUrlAPI + "user/updateuser?id=" +  userprofile.getId(), new Response.Listener<String>() {
+            StringRequest req = new StringRequest(Request.Method.PUT, mUrlAPI + "user/updateuser?id=" + userprofile.getId(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (perfilListener != null)
@@ -309,7 +374,7 @@ public class SingletonGestorMotociclos {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ExtraJsonParser.isConnectionInternet(context)) {
@@ -338,7 +403,7 @@ public class SingletonGestorMotociclos {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
@@ -374,8 +439,9 @@ public class SingletonGestorMotociclos {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
-            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";        }
+        if (ip != null && !ip.isEmpty()) {
+            mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
+        }
         if (!ReservasJsonParser.isConnectionInternet(context)) {
 
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
@@ -383,7 +449,7 @@ public class SingletonGestorMotociclos {
                 reservasListener.onRefreshListaReservas(reservasBD.getAllReservaBD());
 
         } else {
-            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "reserva/todasreservas", null,new Response.Listener<JSONArray>() {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, mUrlAPI + "reserva/todasreservas", null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     reservas = ReservasJsonParser.parserJsonReservas(response);
@@ -422,14 +488,14 @@ public class SingletonGestorMotociclos {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_info", Context.MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "");
 
-        if (ip != null && !ip.isEmpty()){
+        if (ip != null && !ip.isEmpty()) {
             mUrlAPI = "http://" + ip + "/RentAllMotorBike/RentAllMotorBike/backend/web/api/";
         }
         if (!PerfilJsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem internet", Toast.LENGTH_SHORT).show();
 
         } else {
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, mUrlAPI + "user/login?username=" + username + "&password=" + passaword, null, new Response.Listener<JSONObject>(){
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, mUrlAPI + "user/login?username=" + username + "&password=" + passaword, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     userprofile = PerfilJsonParser.parseJsonDadosPessoal(response);
@@ -451,12 +517,11 @@ public class SingletonGestorMotociclos {
         return (Perfil) userprofile;
     }
 
-    public void logout(){
+    public void logout() {
         userprofile = null;
     }
 
 //endregion
-
 
 
 }

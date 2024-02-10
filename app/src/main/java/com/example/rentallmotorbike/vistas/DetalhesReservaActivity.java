@@ -37,7 +37,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
 
     private Button btnPedirAssistencia;
 
-    public static final String IDVEICULO = "IDVEICULO";
+    public static final String IDMOTOCICLO = "IDMOTOCILO";
     public static final String IDRESERVA = "IDRESERVA";
 
 
@@ -63,7 +63,7 @@ public class DetalhesReservaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DetalhesReservaActivity.this, AssistenciaActivity.class);
-                intent.putExtra(DetalhesReservaActivity.IDVEICULO, reserva.getMotociclo_id());
+                intent.putExtra(DetalhesReservaActivity.IDMOTOCICLO, reserva.getMotociclo_id());
                 startActivity(intent);
                 finish();
             }
@@ -109,8 +109,6 @@ public class DetalhesReservaActivity extends AppCompatActivity {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private Bitmap makeqr(String id) {
